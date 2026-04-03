@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ECOPOLIS — Board Game of Cities, Crises & Ecology</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- ====================================================
-     SCREEN: SETUP / SPLASH
-===================================================== -->
+<!-- ===== SETUP SCREEN ===== -->
 <div id="screen-setup" class="screen active">
   <div class="setup-bg"></div>
   <div class="setup-card">
@@ -21,7 +19,6 @@
     <h1 class="setup-title">ECOPOLIS</h1>
     <p class="setup-sub">Build a thriving city, balance your resources, and protect the fragile ecosystem</p>
     <div class="setup-meta">2–4 PLAYERS · STRATEGY · ECOLOGY · CRISIS MANAGEMENT</div>
-
     <div class="setup-section">
       <label class="setup-label">Number of Players</label>
       <div class="player-count-btns" id="playerCountBtns">
@@ -30,19 +27,16 @@
         <button class="pcbtn" data-n="4">4</button>
       </div>
     </div>
-
-    <div class="setup-players" id="setupPlayers">
-      <!-- Player name inputs injected by JS -->
+    <div class="setup-players" id="setupPlayers"></div>
+    <button class="btn-start" id="btnStartGame">▶ START GAME</button>
+    <div class="setup-link-row">
+      <span class="setup-link" id="btnShowRules">📖 Rules</span>
+      <span class="setup-link" id="btnShowBlueprintSetup">📐 Board Blueprint</span>
     </div>
-
-    <button class="btn-start" id="btnStartGame">START GAME</button>
-    <div class="setup-rules-link" id="btnShowRules">📖 Read Full Rules</div>
   </div>
 </div>
 
-<!-- ====================================================
-     SCREEN: RULES
-===================================================== -->
+<!-- ===== RULES SCREEN ===== -->
 <div id="screen-rules" class="screen">
   <div class="rules-panel">
     <button class="rules-close" id="btnCloseRules">✕ Close</button>
@@ -51,195 +45,187 @@
   </div>
 </div>
 
-<!-- ====================================================
-     SCREEN: GAME
-===================================================== -->
+<!-- ===== GAME SCREEN ===== -->
 <div id="screen-game" class="screen">
 
   <!-- TOP BAR -->
   <div class="top-bar">
-    <div class="top-bar-left">
+    <div class="tb-left">
       <span class="game-logo">🌿 ECOPOLIS</span>
       <span class="round-label" id="roundLabel">Round 1</span>
     </div>
-    <div class="top-bar-center">
-      <div class="eco-track-wrap">
-        <span class="eco-track-title">🌍 Global Eco</span>
-        <div class="eco-track-bar" id="ecoTrackBar">
-          <div class="eco-track-fill" id="ecoTrackFill"></div>
-          <span class="eco-track-value" id="ecoTrackValue">100</span>
-        </div>
+    <div class="tb-center">
+      <span class="eco-lbl">🌍 Global Eco</span>
+      <div class="eco-bar-wrap">
+        <div class="eco-bar-fill" id="ecoBarFill"></div>
+        <span class="eco-bar-val" id="ecoBarVal">100</span>
       </div>
     </div>
-    <div class="top-bar-right">
-      <button class="btn-mini" id="btnRules2">📖 Rules</button>
+    <div class="tb-right">
+      <button class="btn-mini" id="btnBlueprintGame">📐 Blueprint</button>
+      <button class="btn-mini" id="btnRulesGame">📖 Rules</button>
       <button class="btn-mini btn-danger" id="btnQuit">✕ Quit</button>
     </div>
   </div>
 
-  <!-- MAIN GAME LAYOUT -->
-  <div class="game-layout">
+  <!-- THREE-COLUMN LAYOUT -->
+  <div class="game-3col">
 
-    <!-- LEFT: Board + Log -->
-    <div class="game-left">
-
-      <!-- THE BOARD -->
-      <div class="board-frame" id="boardFrame">
-        <div class="board-inner" id="boardInner">
-          <!-- BOARD SVG/Canvas layer -->
-          <canvas id="boardCanvas"></canvas>
-          <!-- Space overlays injected by JS -->
-          <div id="boardSpaces"></div>
-          <!-- Center Hub -->
-          <div class="center-hub" id="centerHub">
-            <div class="hub-glow"></div>
-            <div class="hub-title">🌿 GLOBAL<br>ECO HUB</div>
-            <div class="hub-rewards">
-              +2 Capital · +2 Well-being<br>
-              −1 Pollution · +1 Global Eco<br>
-              <strong>Free Building Card</strong><br>
-              <em>Every 2nd visit: +1 VP</em>
-            </div>
-          </div>
-          <!-- Player tokens injected by JS -->
-          <div id="playerTokensLayer"></div>
-        </div>
-      </div>
-
-      <!-- ACTION LOG -->
+    <!-- LEFT SIDE: Players 1 & 2 + Log -->
+    <div class="side-col side-col-left" id="sideLeft">
+      <div class="sc-title">PLAYERS</div>
+      <div id="dashLeft"></div>
       <div class="log-panel">
-        <div class="log-title">📋 Game Log</div>
-        <div class="log-scroll" id="gameLog"></div>
+        <div class="log-title">📋 Log</div>
+        <div class="log-body" id="gameLog"></div>
       </div>
     </div>
 
-    <!-- RIGHT: Players + Controls -->
-    <div class="game-right">
-
-      <!-- CURRENT TURN PANEL -->
-      <div class="turn-panel" id="turnPanel">
-        <div class="turn-header">
-          <span class="turn-player-name" id="turnPlayerName"></span>
-          <span class="turn-phase-label" id="turnPhaseLabel">Phase 1: Roll Dice</span>
+    <!-- BOARD COLUMN -->
+    <div class="board-col">
+      <div class="board-frame" id="boardFrame">
+        <div class="board-inner" id="boardInner">
+          <div id="boardSpaces"></div>
+          <div class="center-hub" id="centerHub">
+            <div class="hub-ring"></div>
+            <div class="hub-content">
+              <div class="hub-title">🌿 GLOBAL<br>ECO HUB</div>
+              <div class="hub-body">
+                +2 Cap · +2 WB<br>−1 Pol · +1 Eco<br>
+                <b>Free Card</b><br>
+                <i>2nd visit +1VP</i>
+              </div>
+            </div>
+          </div>
+          <div id="tokenLayer"></div>
         </div>
-        <div class="turn-dice" id="turnDiceArea">
+      </div>
+
+      <!-- TURN CONTROLS -->
+      <div class="turn-strip" id="turnStrip">
+        <div class="ts-info">
+          <span class="ts-name" id="tsName">—</span>
+          <span class="ts-phase" id="tsPhase">Phase 1</span>
+        </div>
+        <div class="ts-dice">
           <div class="die" id="die1">?</div>
           <div class="die" id="die2">?</div>
-          <div class="dice-total" id="diceTotal">— Roll to Start —</div>
+          <span class="ts-total" id="tsTotal">Roll!</span>
         </div>
-        <div class="turn-actions" id="turnActions">
-          <button class="btn-action" id="btnRoll">🎲 Roll Dice</button>
+        <div class="ts-actions" id="tsActions">
+          <button class="btn-act" id="btnRoll">🎲 Roll</button>
         </div>
-        <div class="turn-message" id="turnMessage"></div>
-      </div>
-
-      <!-- BUILDING PANEL (shown when can build) -->
-      <div class="build-panel" id="buildPanel" style="display:none">
-        <div class="build-title">🏗️ Optional: Build a Structure</div>
-        <div class="build-filter">
-          <button class="filter-btn active" data-cat="all">All</button>
-          <button class="filter-btn" data-cat="eco">🌱 Eco</button>
-          <button class="filter-btn" data-cat="transport">🚇 Transport</button>
-          <button class="filter-btn" data-cat="community">📚 Community</button>
-          <button class="filter-btn" data-cat="health">🏃 Health</button>
-          <button class="filter-btn" data-cat="safety">🚨 Safety</button>
-          <button class="filter-btn" data-cat="industry">🏭 Industry</button>
-        </div>
-        <div class="build-list" id="buildList"></div>
-        <button class="btn-skip" id="btnSkipBuild">Skip Building</button>
-      </div>
-
-      <!-- CHOICE PANEL (for ecological dilemmas) -->
-      <div class="choice-panel" id="choicePanel" style="display:none">
-        <div class="choice-title" id="choiceTitle"></div>
-        <div class="choice-desc" id="choiceDesc"></div>
-        <div class="choice-options" id="choiceOptions"></div>
+        <div class="ts-msg" id="tsMsg"></div>
       </div>
 
       <!-- VP TRACK -->
-      <div class="vp-panel">
-        <div class="vp-panel-title">🏆 Victory Points Track — First to 30 wins!</div>
-        <div class="vp-track" id="vpTrack"></div>
+      <div class="vp-row">
+        <div class="vp-row-title">🏆 VP Track — First to 30 wins!</div>
+        <div class="vp-cells" id="vpCells"></div>
       </div>
-
-      <!-- PLAYER DASHBOARDS -->
-      <div class="dashboards" id="dashboards">
-        <!-- injected by JS -->
-      </div>
-
     </div>
-  </div>
-</div>
 
-<!-- ====================================================
-     MODAL: Card Draw
-===================================================== -->
+    <!-- RIGHT SIDE: Players 3 & 4 + Build/Choice panels -->
+    <div class="side-col side-col-right" id="sideRight">
+      <div class="sc-title">PLAYERS</div>
+      <div id="dashRight"></div>
+
+      <!-- Build Panel -->
+      <div class="build-panel" id="buildPanel" style="display:none">
+        <div class="bp-title">🏗️ Optional Building</div>
+        <div class="bp-filters" id="bpFilters">
+          <button class="fbtn active" data-cat="all">All</button>
+          <button class="fbtn" data-cat="eco">🌱Eco</button>
+          <button class="fbtn" data-cat="transport">🚇Trans</button>
+          <button class="fbtn" data-cat="community">📚Com</button>
+          <button class="fbtn" data-cat="health">🏃Hlth</button>
+          <button class="fbtn" data-cat="safety">🚨Safe</button>
+          <button class="fbtn" data-cat="industry">🏭Ind</button>
+        </div>
+        <div class="bp-list" id="bpList"></div>
+        <button class="btn-skip" id="btnSkipBuild">Skip →</button>
+      </div>
+
+      <!-- Choice Panel -->
+      <div class="choice-panel" id="choicePanel" style="display:none">
+        <div class="cp-title" id="cpTitle"></div>
+        <div class="cp-desc" id="cpDesc"></div>
+        <div class="cp-opts" id="cpOpts"></div>
+      </div>
+    </div>
+
+  </div><!-- end game-3col -->
+</div><!-- end screen-game -->
+
+<!-- ===== MODALS ===== -->
+
 <div id="modal-card" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <div class="modal-card-type" id="modalCardType"></div>
-    <div class="modal-card-icon" id="modalCardIcon"></div>
-    <div class="modal-card-name" id="modalCardName"></div>
-    <div class="modal-card-desc" id="modalCardDesc"></div>
-    <div class="modal-card-effects" id="modalCardEffects"></div>
-    <button class="btn-modal-ok" id="btnModalOk">OK — Apply Effects</button>
+    <div class="m-type" id="mType"></div>
+    <div class="m-icon" id="mIcon"></div>
+    <div class="m-name" id="mName"></div>
+    <div class="m-desc" id="mDesc"></div>
+    <div class="m-effects" id="mEffects"></div>
+    <button class="btn-mok" id="btnMOk">OK — Apply</button>
   </div>
 </div>
 
-<!-- ====================================================
-     MODAL: Building Card Preview
-===================================================== -->
 <div id="modal-build" class="modal-overlay" style="display:none">
-  <div class="modal-box modal-build-box">
-    <div class="modal-card-type">Building Card</div>
-    <div class="modal-card-icon" id="modalBuildIcon"></div>
-    <div class="modal-card-name" id="modalBuildName"></div>
-    <div class="modal-card-desc" id="modalBuildDesc"></div>
-    <div class="modal-card-effects" id="modalBuildEffects"></div>
-    <div class="modal-build-actions">
-      <button class="btn-modal-build" id="btnConfirmBuild">🏗️ Build It!</button>
-      <button class="btn-modal-cancel" id="btnCancelBuild">Cancel</button>
+  <div class="modal-box">
+    <div class="m-type">🏗️ Building Card</div>
+    <div class="m-icon" id="mBuildIcon"></div>
+    <div class="m-name" id="mBuildName"></div>
+    <div class="m-desc" id="mBuildDesc"></div>
+    <div class="m-effects" id="mBuildEffects"></div>
+    <div class="m-build-btns">
+      <button class="btn-mok" id="btnConfirmBuild">Build It!</button>
+      <button class="btn-mcancel" id="btnCancelBuild">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- ====================================================
-     MODAL: Winner
-===================================================== -->
 <div id="modal-winner" class="modal-overlay" style="display:none">
-  <div class="modal-box modal-winner-box">
-    <div class="winner-trophy">🏆</div>
-    <div class="winner-title" id="winnerTitle"></div>
-    <div class="winner-sub" id="winnerSub"></div>
-    <div class="winner-stats" id="winnerStats"></div>
-    <button class="btn-modal-ok" id="btnPlayAgain">🔄 Play Again</button>
+  <div class="modal-box modal-winner">
+    <div class="w-trophy">🏆</div>
+    <div class="w-title" id="wTitle"></div>
+    <div class="w-sub" id="wSub"></div>
+    <div class="w-stats" id="wStats"></div>
+    <button class="btn-mok" id="btnPlayAgain">🔄 Play Again</button>
   </div>
 </div>
 
-<!-- ====================================================
-     MODAL: Global Events Wheel
-===================================================== -->
 <div id="modal-wheel" class="modal-overlay" style="display:none">
-  <div class="modal-box modal-wheel-box">
-    <div class="wheel-modal-title">🌐 Global Events Wheel</div>
-    <div class="wheel-wrap" id="wheelWrap">
-      <canvas id="wheelCanvas" width="320" height="320"></canvas>
-      <div class="wheel-pointer">▼</div>
+  <div class="modal-box modal-wheel">
+    <div class="wheel-title">🌐 Global Events Wheel</div>
+    <div class="wheel-wrap">
+      <canvas id="wheelCanvas" width="280" height="280"></canvas>
+      <div class="wheel-ptr">▼</div>
     </div>
     <div class="wheel-result" id="wheelResult" style="display:none"></div>
     <button class="btn-spin" id="btnSpin">🌀 SPIN!</button>
-    <button class="btn-modal-ok" id="btnWheelOk" style="display:none">Apply &amp; Continue</button>
+    <button class="btn-mok" id="btnWheelOk" style="display:none">Apply &amp; Continue</button>
   </div>
 </div>
 
-<!-- ====================================================
-     MODAL: Elimination
-===================================================== -->
 <div id="modal-elim" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <div class="elim-icon">💀</div>
-    <div class="elim-title" id="elimTitle"></div>
-    <div class="elim-reason" id="elimReason"></div>
-    <button class="btn-modal-ok" id="btnElimOk">Continue Game</button>
+    <div class="m-icon">💀</div>
+    <div class="m-name" id="elimTitle"></div>
+    <div class="m-desc" id="elimReason"></div>
+    <button class="btn-mok" id="btnElimOk">Continue</button>
+  </div>
+</div>
+
+<div id="modal-blueprint" class="modal-overlay" style="display:none">
+  <div class="modal-box modal-bp">
+    <div class="mbp-header">
+      <span>📐 ECOPOLIS Board Blueprint — 91.44 cm × 91.44 cm</span>
+      <button class="btn-dl" id="btnDlBlueprint">⬇ Download PNG</button>
+      <button class="btn-mcancel" id="btnCloseBp">✕ Close</button>
+    </div>
+    <div class="mbp-scroll">
+      <canvas id="bpCanvas"></canvas>
+    </div>
   </div>
 </div>
 
