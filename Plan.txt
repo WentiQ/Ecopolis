@@ -1,0 +1,492 @@
+================================================================================
+ECOPOLIS BOARD GAME — COMPLETE EVENT LIST
+All Events with Locations and Points (Comprehensive Master File)
+================================================================================
+
+PERIMETER TRACK (Moving clockwise from top-left corner)
+────────────────────────────────────────────────────────────────────────────
+
+TOP EDGE (Left to Right):
+────────────────────────────────────────────────────────────────────────────
+
+1. START (Corner) - ⭐ START POSITION
+   Points: 0 | Type: Starting Position
+
+2. Dog Park - 🐕
+   Points: +2 | Wellbeing: +2 | Capital: +1
+
+3. Automobile - 🚗
+   Points: +2 | Capital: +3 | Wellbeing: +1 | Pollution: +2
+
+4. Foundry - 🏭
+   Points: +1 | Capital: +2 | Pollution: +4 | Wellbeing: -1
+
+5. Air Quality Monitor - 📊
+   Points: +1 | Wellbeing: +1 | Capital: +1 | VP: +1
+
+6. Inflation - 📈
+   Points: -1 | Capital: -2 | Wellbeing: -1
+
+7. Street Lights - 💡
+   Points: +2 | Wellbeing: +1 | Capital: +1 | VP: +1
+
+8. Police Station - 🚨
+   Points: +1 | Wellbeing: +1 | Capital: +1
+
+9. Metal Refinery - ⚙️
+   Points: +1 | Capital: +2 | Pollution: +5 | Wellbeing: -1
+
+10. Ozone Layer Depletion - 🌍
+    Points: -7 | Global Eco: -7 | Wellbeing: -3 | Pollution: +4
+
+11. Cement - 🏗️
+    Points: +1 | Capital: +2 | Pollution: +4 | Wellbeing: -1
+
+12. Mass Extinction - 🦋
+    Points: -8 | Global Eco: -8 | Wellbeing: -2 | Pollution: +3
+
+13. Public Restroom - 🚻
+    Points: +1 | Wellbeing: +1 | Capital: +1 | VP: +1
+
+14. Bullet Train Launch - 🚄
+    Points: +3 | Capital: +3 | Wellbeing: +2 | VP: +1
+
+15. Virus Outbreak - 🦠
+    Points: -6 | Wellbeing: -6 | Capital: -2 | Global Eco: -1
+
+16. Economic Boom - 📈
+    Points: +6 | Capital: +6 | Pollution: -2 | VP: +1
+
+17. Urban Heat Island - 🌡️
+    Points: -4 | Wellbeing: -4 | Global Eco: -3 | Capital: -1
+
+18. Old age population Increase - 🏙️
+    Points: +2 | Capital: +2 | Global Eco: -3 | Wellbeing: +1
+
+RIGHT EDGE (Top to Bottom):
+────────────────────────────────────────────────────────────────────────────
+
+19. WAR (Corner) - ⚔️
+    Points: -8 | Capital: -8 | Wellbeing: -6 | Global Eco: -3 | Pollution: +4
+
+20. Satellite Internet Launch - 🛰️
+    Points: +5 | Capital: +5 | Wellbeing: +3 | Pollution: -1 | VP: +1
+
+21. Labour Shortage - ⚒️
+    Points: -2 | Capital: -2 | Wellbeing: -1
+
+22. Public Swimming Pool - 🏊
+    Points: +2 | Wellbeing: +2 | Capital: +1
+
+23. Resources Drain - 🛢️
+    Points: -4 | Capital: -4 | Global Eco: -2
+
+24. Government Collapse - 🏛️
+    Points: -5 | Wellbeing: -5 | Capital: -3 | Global Eco: -1
+
+25. Youth Leadership - 👦
+    Points: +3 | Wellbeing: +3 | Capital: +2 | Global Eco: +1 | VP: +2
+
+26. Public Library - 📚
+    Points: +2 | Wellbeing: +2 | Capital: +1 | VP: +1
+
+27. Heat Waves - 🔥
+    Points: -5 | Wellbeing: -5 | Global Eco: -3 | Pollution: +2
+
+28. Rare Earth Minerals (Corner Junction) - 💎
+    Points: +2 | Capital: +3 | Wellbeing: +1 | VP: +1
+
+29. Infrastructure Fatigue - 🏗️
+    Points: -4 | Capital: -4 | Wellbeing: -3 | Global Eco: -1
+
+30. Cinema - 🍿
+    Points: +2 | Wellbeing: +2 | Capital: +1
+
+31. Fire Station - 🚒
+    Points: +1 | Wellbeing: +1 | Capital: +1
+
+32. Heritage Restoration - 🏛️
+    Points: +2 | Wellbeing: +2 | Capital: +1
+
+33. Park - 🌳
+    Points: +2 | Wellbeing: +2 | Global Eco: +1 | Capital: +1
+
+34. Odd Even Rule - 🚗
+    Points: +2 | Pollution: -3 | Wellbeing: +1
+
+35. Community Garden - 🌱
+    Points: +2 | Wellbeing: +2 | Global Eco: +2 | Capital: +1 | VP: +1
+
+BOTTOM EDGE (Right to Left):
+────────────────────────────────────────────────────────────────────────────
+
+36. RENEWABLE ENERGY TRANSFORMATION (Corner) - ⚡
+    Points: +4 | Capital: +4 | Pollution: -5 | Global Eco: +3 | VP: +2
+
+37. Wildlife Protection Act - 🦌
+    Points: +3 | Global Eco: +3 | Wellbeing: +1 | VP: +1
+
+38. Industrialization Boom - 🏭
+    Points: +1 | Capital: +4 | Pollution: +5
+
+39. Nuclear Waste Leak - ☢️
+    Points: -10 | Pollution: +10 | Global Eco: -6 | Wellbeing: -5 | Capital: -2
+
+40. Trust Issues - 🤝
+    Points: -2 | Wellbeing: -2 | Capital: -1
+
+41. Reforestation Success - 🌲
+    Points: +3 | Global Eco: +4 | Pollution: -2
+
+42. River Fish Collapse - 🐟
+    Points: -4 | Global Eco: -5 | Wellbeing: -2
+
+43. Zero Emission Fleet - 🚙
+    Points: +3 | Pollution: -4 | Capital: +2
+
+44. Tsunami Hits - 🌊
+    Points: -7 | Capital: -7 | Wellbeing: -5 | Global Eco: -3 | Land: -2
+
+45. Nuclear Attacks - 💣
+    Points: -10 | Capital: -10 | Wellbeing: -8 | Global Eco: -5 | Pollution: +8
+
+46. Construction - 🏗️
+    Points: +1 | Capital: +2 | Wellbeing: +1
+
+47. Amphitheatre - 🎪
+    Points: +2 | Wellbeing: +2 | Capital: +1 | VP: +1
+
+48. Population Explosion - 🏙️
+    Points: +2 | Capital: +2 | Global Eco: -3 | Wellbeing: +1
+
+49. Plastic Eating Bacteria - 🔬
+    Points: +3 | Pollution: -5 | Global Eco: +2
+
+50. EV Hubs - 🔌
+    Points: +2 | Capital: +2 | Pollution: -3
+
+51. Food Shortage - 🌾
+    Points: -5 | Wellbeing: -5 | Capital: -3 | Global Eco: -2
+
+52. Stock Exchange - 📊
+    Points: +1 | Capital: +4 | Wellbeing: 0
+
+53. Biodiversity Loss - 🦋
+    Points: -4 | Global Eco: -4 | Wellbeing: -1 | Capital: -1
+
+LEFT EDGE (Bottom to Top):
+────────────────────────────────────────────────────────────────────────────
+
+54. LONELINESS (Corner) - 😢
+    Points: -2 | Wellbeing: -4 | Capital: -1 | Global Eco: -1
+
+55. Ocean Plastic Cleanup - 🌊
+    Points: +3 | Global Eco: +4 | Pollution: -3 | Capital: +1 | VP: +2
+
+56. Data Centre - 🖥️
+    Points: +1 | Capital: +3 | Wellbeing: +1 | Pollution: +2
+
+57. Desertification - 🏜️
+    Points: -4 | Global Eco: -4 | Land: -2
+
+58. Public School - 🎓
+    Points: +2 | Wellbeing: +2 | Capital: +1 | VP: +1
+
+59. Carbon Capture - 💨
+    Points: +4 | Capital: +2 | Pollution: -4 | Global Eco: +4 | VP: +2
+
+60. Glass Plant - 🏭
+    Points: +1 | Capital: +2 | Pollution: +2 | Global Eco: -1
+
+61. Farmers Market - 🥕
+    Points: +2 | Capital: +2 | Wellbeing: +2 | Global Eco: +1 | VP: +1
+
+62. Smart Grid - ⚡
+    Points: +3 | Capital: +3 | Pollution: -3 | Global Eco: +2 | VP: +1
+
+63. Innovation - 💡
+    Points: +4 | Capital: +4 | Wellbeing: +2 | VP: +2
+
+64. Cyber Center - 💻
+    Points: +2 | Capital: +3 | Wellbeing: +1 | VP: +1
+
+65. Public Hospital - 🏥
+    Points: +2 | Wellbeing: +3 | Capital: +1 | VP: +1
+
+66. Symphony of Birds - 🎶
+    Points: +2 | Global Eco: +3 | Wellbeing: +2 | VP: +1
+
+67. Pollution Disaster - ☢️
+    Points: -6 | Global Eco: -5 | Wellbeing: -4 | Pollution: +7
+
+68. Subways - 🚇
+    Points: +3 | Capital: +2 | Wellbeing: +2 | Pollution: -2 | VP: +1
+
+69. Community Hall - 🏛️
+    Points: +2 | Wellbeing: +2 | Capital: +1
+
+70. Organic Farming - 🌱
+    Points: +3 | Capital: +1 | Global Eco: +3 | Wellbeing: +2 | VP: +1
+
+71. Heavy Machinery - 🏗️
+    Points: +1 | Capital: +2 | Pollution: +4 | Global Eco: -1
+
+================================================================================
+INNER CROSS TRACKS
+────────────────────────────────────────────────────────────────────────────
+
+HORIZONTAL - LEFT SIDE (Moving Right toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Pandemic - 🦠
+   Points: -8 | Wellbeing: -8 | Capital: -3 | Global Eco: -1
+
+2. Bike Lane - 🚴
+   Points: +2 | Pollution: -2 | Wellbeing: +2 | Global Eco: +1 | VP: +1
+
+3. Forest Fire - 🔥
+   Points: -3 | Global Eco: -5 | Pollution: +4 | Wellbeing: -2
+
+4. Oil Spill - 🛢️
+   Points: -6 | Global Eco: -6 | Wellbeing: -2 | Pollution: +5
+
+5. Deforestation - 🌲
+   Points: -4 | Global Eco: -4 | Wellbeing: -2 | Capital: -1
+
+6. Carbon Capture - 💨
+   Points: +4 | Capital: +2 | Pollution: -4 | Global Eco: +4 | VP: +2
+
+HORIZONTAL - RIGHT SIDE (Moving Left toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Biogas Plant - 🌾
+   Points: +3 | Capital: +2 | Pollution: -2 | Global Eco: +3 | VP: +1
+
+2. Innovation Crisis - 🧑‍🔬
+   Points: -4 | Capital: -4 | Wellbeing: -2 | Land: -1
+
+3. Cyber Attack - 💻
+   Points: -5 | Capital: -5 | Wellbeing: -2
+
+4. Carbon Tax Implementation - 💰
+   Points: +2 | Capital: -1 | Pollution: -3 | Global Eco: +3 | VP: +1
+
+5. Skating Rink - ⛸️
+   Points: +1 | Wellbeing: +2 | Capital: +1
+
+6. Microplastic Toxicity - 🔬
+   Points: -4 | Wellbeing: -4 | Pollution: +5 | Capital: -1
+
+VERTICAL - TOP SIDE (Moving Down toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Textile - 👗
+   Points: +1 | Capital: +2 | Pollution: +3
+
+2. Terrorism - 💣
+   Points: -6 | Wellbeing: -6 | Capital: -2
+
+3. Record Harvest - 🧺
+   Points: +3 | Wellbeing: +2 | Global Eco: +2
+
+4. AI Disruption - 🤖
+   Points: -4 | Capital: -4 | Wellbeing: -2
+
+5. Petrochemical - 🛢️
+   Points: +1 | Capital: +2 | Pollution: +6 | Global Eco: -2
+
+6. Open Gym - 💪
+   Points: +2 | Wellbeing: +2 | VP: +1
+
+VERTICAL - BOTTOM SIDE (Moving Up toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Rainwater Harvesting - 💧
+   Points: +2 | Global Eco: +2 | Wellbeing: +1
+
+2. Museum - 🖼️
+   Points: +2 | Wellbeing: +2 | Capital: +2 | VP: +1
+
+3. Energy Demand Spike - ⚡
+   Points: -3 | Capital: -4 | Global Eco: -1
+
+4. Sewage Treatment Plant - 🏗️
+   Points: +2 | Global Eco: +2 | Pollution: -3
+
+5. Quantum Hub & Tech - ⚛️
+   Points: +4 | Capital: +4 | VP: +2
+
+6. Planetary Restoration - 🌍
+   Points: +5 | Global Eco: +5 | Pollution: -4
+
+================================================================================
+DIAGONAL TRACKS
+────────────────────────────────────────────────────────────────────────────
+
+TOP-LEFT DIAGONAL (Moving toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Textile - 👗
+   Points: +1 | Capital: +2 | Pollution: +3
+
+2. Terrorism - 💣
+   Points: -6 | Wellbeing: -6 | Capital: -2
+
+3. Record Harvest - 🧻
+   Points: +3 | Wellbeing: +2 | Global Eco: +2
+
+4. AI Disruption - 🤖
+   Points: -4 | Capital: -4 | Wellbeing: -2
+
+5. Petrochemicals - 🛢️
+   Points: +1 | Capital: +2 | Pollution: +6 | Global Eco: -2
+
+6. Open Gym - 💪
+   Points: +2 | Wellbeing: +2 | VP: +1
+
+7. Chip Shortage - 💾
+   Points: -3 | Capital: -3 | Wellbeing: -1
+
+8. Social Inequality - ⚖️
+   Points: -4 | Wellbeing: -4 | Capital: -2 | Global Eco: -1
+
+TOP-RIGHT DIAGONAL (Moving toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Cemetery - 🪦
+   Points: -1 | Wellbeing: -1 | Capital: 0
+
+2. Waste Collection Facility - 🚛
+   Points: +2 | Capital: +1 | Wellbeing: +1 | Global Eco: +1 | VP: +1
+
+3. Solar Farm - ☀️
+   Points: +3 | Capital: +3 | Pollution: -4 | Global Eco: +3 | VP: +1
+
+4. Quarrying - ⛏️
+   Points: -1 | Capital: +2 | Land: -2 | Global Eco: -1
+
+5. Brain Drain - 🧠
+   Points: -3 | Capital: -3 | Wellbeing: -2 | Land: -1
+
+6. Crisis Shelter - 🏚️
+   Points: -2 | Wellbeing: -2 | Capital: -1 | Global Eco: -1
+
+7. Data Leak - 📊
+   Points: -4 | Capital: -4 | Wellbeing: -3
+
+8. Water Dispenser - 💧
+   Points: +1 | Wellbeing: +1 | Capital: +1
+
+BOTTOM-RIGHT DIAGONAL (Moving toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Rainwater Harvesting - 💧
+   Points: +2 | Global Eco: +2 | Wellbeing: +1
+
+2. Museum - 🖼️
+   Points: +2 | Wellbeing: +2 | Capital: +2 | VP: +1
+
+3. Energy Demand Spike - ⚡
+   Points: -3 | Capital: -4 | Global Eco: -1
+
+4. Sewage Treatment Plant - 🏗️ - 🏗️
+   Points: +2 | Global Eco: +2 | Pollution: -3
+
+5. Quantum Hub and Tech - ⚛️ - ⚛️
+   Points: +4 | Capital: +4 | VP: +2
+
+6. Planetary Restoration - 🌍
+   Points: +5 | Global Eco: +5 | Pollution: -4
+
+7. Water Treatment Plant - 🏗️
+   Points: +3 | Global Eco: +3 | Pollution: -2 | Capital: +2 | VP: +1
+
+8. Clock Tower - 🕐
+   Points: +1 | Wellbeing: +1 | Capital: +1
+
+BOTTOM-LEFT DIAGONAL (Moving toward Center):
+────────────────────────────────────────────────────────────────────────────
+
+1. Wildlife Corridor - 🦌
+   Points: +3 | Global Eco: +4 | Wellbeing: +1 | Capital: +1 | VP: +1
+
+2. Refugee Crisis - 🏠
+   Points: -3 | Capital: -3 | Wellbeing: -4 | Global Eco: -1
+
+3. Sports Complex - ⚽
+   Points: +2 | Wellbeing: +2 | Capital: +1 | VP: +1
+
+4. Water Scarcity - 💧
+   Points: -3 | Wellbeing: -3 | Global Eco: -2 | Capital: -1
+
+5. Logging - 🪵
+   Points: -2 | Global Eco: -3 | Capital: +1 | Wellbeing: -1
+
+6. Carbon Credit - 💚
+   Points: +2 | Capital: +2 | Global Eco: +2 | Pollution: -1 | VP: +1
+
+7. Unemployment - 👤
+   Points: -4 | Capital: -4 | Wellbeing: -4 | Global Eco: -1
+
+8. Semiconductor - 💾
+   Points: +2 | Capital: +3 | Wellbeing: +1 | VP: +1
+
+================================================================================
+CENTER HUB (Dead Center)
+────────────────────────────────────────────────────────────────────────────
+
+GLOBAL ECO HUB - 🌍
+Status: Special/Ultimate Location
+Points: +5
+Effects:
+  • Capital: +2
+  • Wellbeing: +2
+  • Pollution: -1
+  • Global Eco: +1
+  • Build a Card for Free
+  • Victory Points: +2
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+TOTAL EVENTS: 143
+
+By Impact Type:
+  • POSITIVE EVENTS: 74 events (51.7%)
+  • NEUTRAL/MIXED EVENTS: 26 events (18.2%)
+  • NEGATIVE EVENTS: 43 events (30.1%)
+
+Average Points by Category:
+  • Infrastructure & Services: +1.8
+  • Green Energy & Sustainability: +2.8
+  • Industry & Manufacturing: +0.6
+  • Technology & Innovation: +2.4
+  • Agriculture & Nature: +0.9 [cite: 138]
+  • Social & Community: +0.8
+  • Entertainment & Leisure: +1.5
+  • Disaster Events: -4.2
+
+Point Distribution:
+  • Highest Positive: Global Eco Hub (+5), Planetary Restoration (+5)
+  • Highest Negative: Nuclear Attacks (-10), Nuclear Waste Leak (-10)
+  • Most Common: +2 points
+
+Victory Points Givers:
+  • Total Events with VP: 68 events (47.6%)
+  • Average VP per event: +1.2
+
+================================================================================
+ASPECTS REFERENCE
+════════════════════════════════════════════════════════════════════════════
+
+Capital (💰): Funds, investments, economic resources
+Wellbeing (😊): Citizen happiness, health, quality of life
+Pollution (☢️): Environmental toxicity (+ = worsens, - = improves)
+Global Eco (🌍): Global ecological score (+ = improves, - = worsens)
+Land (🌳): Available land resources [cite: 139]
+VP (⭐): Victory Points (scoring multiplier)
+
+================================================================================
+
+END OF MASTER FILE

@@ -84,187 +84,181 @@ const BUILDING_CARDS = [
 ];
 
 /* ================================================================
-   OUTER LOOP — 80 SPACES
-   Exactly following Blueprint doc:
-   4 Corners + 4 Sides of 19 spaces each = 80 total
+   OUTER LOOP — 72 SPACES (71 playable + 1 start)
+   New layout from Plan.txt:
+   - 1 START position
+   - 4 CORNERS (3 junctions): TOP, RIGHT, BOTTOM, LEFT
+   - 4 SIDES with 17 cards each
 
-   Corner 1 = space 1 = START (top-left)
-   Corner 2 = space 21 = Terrorism Crisis (top-right)
-   Corner 3 = space 41 = Deforestation Crisis (bottom-right)
-   Corner 4 = space 61 = Pollution Disaster Crisis (bottom-left)
-
-   Side 1 (top, spaces 2-20): Heavy Industry + Crises
-   Side 2 (right, spaces 22-40): Tech/Green/Energy + Crises
-   Side 3 (bottom, spaces 42-60): Community/Health/Transport + Crises
-   Side 4 (left, spaces 62-80): Safety/Dilemmas/Chains
+   Total: 1 start + 3 corners + 17*4 = 72 spaces
    ================================================================ */
 const OUTER_SPACES = [
-  // Corner 1
+  // START (Position 0/1)
   {id:1,  type:'s-start',  label:'START',                icon:'★',  isCorner:true},
-  // Side 1: Heavy Industry, Extraction & Crises (top, left→right)
-  {id:2,  type:'s-asset',  label:'Petrochemical Ref.',   icon:'🏭'},
-  {id:3,  type:'s-asset',  label:'Metal Refineries',     icon:'⚙️'},
-  {id:4,  type:'s-asset',  label:'Foundries',            icon:'🔩'},
-  {id:5,  type:'s-crisis', label:'Refugee Crisis',       icon:'🌊', cardRef:'Refugee Crisis'},
-  {id:6,  type:'s-asset',  label:'Cement',               icon:'🏗️'},
-  {id:7,  type:'s-asset',  label:'Glass',                icon:'🪟'},
-  {id:8,  type:'s-crisis', label:'Social Inequality',    icon:'⚖️', cardRef:'Social Inequality'},
-  {id:9,  type:'s-asset',  label:'Automobile',           icon:'🚗'},
-  {id:10, type:'s-asset',  label:'Heavy Machinery',      icon:'🔧'},
-  {id:11, type:'s-asset',  label:'Textile',              icon:'🧵'},
-  {id:12, type:'s-crisis', label:'Oil Spill',            icon:'🛢️', cardRef:'Oil Spill'},
-  {id:13, type:'s-asset',  label:'Consumer Goods',       icon:'📦'},
-  {id:14, type:'s-asset',  label:'Rare Earth Process.',  icon:'💎'},
-  {id:15, type:'s-asset',  label:'Quarrying',            icon:'⛏️'},
-  {id:16, type:'s-crisis', label:'Overfishing',          icon:'🐟', cardRef:'Overfishing'},
-  {id:17, type:'s-asset',  label:'Heavy Equip. Rental',  icon:'🚜'},
-  {id:18, type:'s-asset',  label:'Construction Sector',  icon:'👷'},
-  {id:19, type:'s-asset',  label:'Logging',              icon:'🪓'},
-  {id:20, type:'s-crisis', label:'Biodiversity Loss',    icon:'🦋', cardRef:'Biodiversity Loss'},
-  // Corner 2
-  {id:21, type:'s-crisis', label:'Terrorism',            icon:'💣', isCorner:true, cardRef:'Terrorism'},
-  // Side 2: Tech, Green Industry, Energy & Crises (right, top→bottom)
-  {id:22, type:'s-asset',  label:'Stock Exchange',       icon:'📈'},
-  {id:23, type:'s-asset',  label:'IT Company',           icon:'💻'},
-  {id:24, type:'s-crisis', label:'AI Disruption',        icon:'🤖', cardRef:'AI Disruption'},
-  {id:25, type:'s-asset',  label:'Data Centers',         icon:'🗄️'},
-  {id:26, type:'s-asset',  label:'Quantum Hubs',         icon:'⚛️'},
-  {id:27, type:'s-asset',  label:'Semiconductor Fab.',   icon:'🔬'},
-  {id:28, type:'s-crisis', label:'Inflation',            icon:'📊', cardRef:'Inflation'},
-  {id:29, type:'s-asset',  label:'Tech Incubators',      icon:'🚀'},
-  {id:30, type:'s-asset',  label:'Cyber Centers',        icon:'🌐'},
-  {id:31, type:'s-asset',  label:'Special Econ. Zones',  icon:'🏙️'},
-  {id:32, type:'s-crisis', label:'Innovation Crisis',    icon:'🧑‍🔬', cardRef:'Innovation Crisis'},
-  {id:33, type:'s-asset',  label:'Bio-Gas Plants',       icon:'🌱'},
-  {id:34, type:'s-asset',  label:'Carbon Credit Trading',icon:'💚'},
-  {id:35, type:'s-asset',  label:'Sustainable Forestry', icon:'🌲'},
-  {id:36, type:'s-crisis', label:'Chip Shortage',        icon:'💾', cardRef:'Chip Shortage'},
-  {id:37, type:'s-asset',  label:'Agrochemical Hubs',    icon:'🌾'},
-  {id:38, type:'s-asset',  label:'Standard Power Plants',icon:'🔌'},
-  {id:39, type:'s-asset',  label:'Nuclear Power Plants', icon:'☢️'},
-  {id:40, type:'s-chain',  label:'Bird Pop. Increases',  icon:'🐦', cardRef:'Bird Population Growth'},
-  // Corner 3
-  {id:41, type:'s-crisis', label:'Deforestation',        icon:'🌲', isCorner:true, cardRef:'Deforestation'},
-  // Side 3: Community, Health, Transport & Crises (bottom, right→left)
-  {id:42, type:'s-asset',  label:'Public Libraries',     icon:'📚'},
-  {id:43, type:'s-asset',  label:'Museums',              icon:'🏛️'},
-  {id:44, type:'s-crisis', label:'Trust Crisis',         icon:'🎭', cardRef:'Trust Crisis'},
-  {id:45, type:'s-asset',  label:'Theatre/Cinema',       icon:'🎭'},
-  {id:46, type:'s-asset',  label:'Amphitheatres',        icon:'🎪'},
-  {id:47, type:'s-asset',  label:'Public Schools',       icon:'🏫'},
-  {id:48, type:'s-crisis', label:'Loneliness Crisis',    icon:'😔', cardRef:'Loneliness Crisis'},
-  {id:49, type:'s-asset',  label:'Public Health Clinics',icon:'🏥'},
-  {id:50, type:'s-asset',  label:'Sports Complex',       icon:'⚽'},
-  {id:51, type:'s-asset',  label:'Gyms',                 icon:'🏋️'},
-  {id:52, type:'s-crisis', label:'Food Security',        icon:'🍞', cardRef:'Food Security Crisis'},
-  {id:53, type:'s-asset',  label:'Pools',                icon:'🏊'},
-  {id:54, type:'s-asset',  label:'Dog Parks',            icon:'🐕'},
-  {id:55, type:'s-asset',  label:'Subways',              icon:'🚇'},
-  {id:56, type:'s-crisis', label:'Plastic Pollution',    icon:'🧴', cardRef:'Plastic Pollution'},
-  {id:57, type:'s-asset',  label:'Bus Facility',         icon:'🚌'},
-  {id:58, type:'s-asset',  label:'EV Hubs',              icon:'⚡'},
-  {id:59, type:'s-asset',  label:'Bike Lanes',           icon:'🚲'},
-  {id:60, type:'s-asset',  label:'Pedestrian Bridges',   icon:'🌉'},
-  // Corner 4
-  {id:61, type:'s-crisis', label:'Pollution Disaster',   icon:'🏭', isCorner:true, cardRef:'Pollution Disaster'},
-  // Side 4: Safety, Dilemmas, Chain Reactions & Minor Positives (left, bottom→top)
-  {id:62, type:'s-asset',  label:'Police',               icon:'👮'},
-  {id:63, type:'s-asset',  label:'Fire Brigade',         icon:'🚒'},
-  {id:64, type:'s-crisis', label:'Desertification',      icon:'🏜️', cardRef:'Desertification'},
-  {id:65, type:'s-asset',  label:'Crisis Shelters',      icon:'🏠'},
-  {id:66, type:'s-asset',  label:'Homeless Shelters',    icon:'🛖'},
-  {id:67, type:'s-dilemma',label:'Traffic',              icon:'🚦', cardRef:'Traffic'},
-  {id:68, type:'s-dilemma',label:'Mycelium Network',     icon:'🍄', cardRef:'Mycelium Network'},
-  {id:69, type:'s-dilemma',label:'Green Spaces',         icon:'🌳', cardRef:'Green Spaces'},
-  {id:70, type:'s-dilemma',label:'Wildlife Conservation',icon:'🐺', cardRef:'Wildlife Conservation'},
-  {id:71, type:'s-dilemma',label:'Seeds',                icon:'🌱', cardRef:'Seeds'},
-  {id:72, type:'s-dilemma',label:'Organic Farming',      icon:'🌾', cardRef:'Organic Farming'},
-  {id:73, type:'s-dilemma',label:'Maintain Forests',     icon:'🌲', cardRef:'Maintain Forests'},
-  {id:74, type:'s-dilemma',label:'River Fish Collapse',  icon:'🐟', cardRef:'River Fish Collapse'},
-  {id:75, type:'s-dilemma',label:'Rare Plankton',        icon:'🌊', cardRef:'Rare Plankton'},
-  {id:76, type:'s-chain',  label:'Predator Protection',  icon:'🐺', cardRef:'Predator Protection'},
-  {id:77, type:'s-chain',  label:'Excess Fertilizer',    icon:'🌾', cardRef:'Excess Fertilizer Damage'},
-  {id:78, type:'s-chain',  label:'Forest Destruction',   icon:'🌲', cardRef:'Forest Destruction Chain'},
-  {id:79, type:'s-chain',  label:'Bee Pop. Decline',     icon:'🐝', cardRef:'Bee Population Decline'},
-  {id:80, type:'s-event',  label:'Vertical Farm Pilot',  icon:'🌿', cardRef:'Vertical Farm Pilot'},
+  
+  // TOP EDGE (17 cards: left→right)
+  {id:2,  type:'s-event',  label:'Dog Park',             icon:'🐕', points:2, modifiers:{wellbeing:2, capital:1}},
+  {id:3,  type:'s-event',  label:'Automobile',           icon:'🚗', points:2, modifiers:{capital:3, wellbeing:1, pollution:2}},
+  {id:4,  type:'s-event',  label:'Foundry',              icon:'🏭', points:1, modifiers:{capital:2, pollution:4, wellbeing:-1}},
+  {id:5,  type:'s-event',  label:'Air Quality Monitor',  icon:'📊', points:1, modifiers:{wellbeing:1, capital:1, vp:1}},
+  {id:6,  type:'s-event',  label:'Inflation',            icon:'📈', points:-1, modifiers:{capital:-2, wellbeing:-1}},
+  {id:7,  type:'s-event',  label:'Street Lights',        icon:'💡', points:2, modifiers:{wellbeing:1, capital:1, vp:1}},
+  {id:8,  type:'s-event',  label:'Police Station',       icon:'🚨', points:1, modifiers:{wellbeing:1, capital:1}},
+  {id:9,  type:'s-event',  label:'Metal Refinery',       icon:'⚙️', points:1, modifiers:{capital:2, pollution:5, wellbeing:-1}},
+  {id:10, type:'s-event',  label:'Ozone Layer Depletion',icon:'🌍', points:-7, modifiers:{globalEco:-7, wellbeing:-3, pollution:4}},
+  {id:11, type:'s-event',  label:'Cement',               icon:'🏗️', points:1, modifiers:{capital:2, pollution:4, wellbeing:-1}},
+  {id:12, type:'s-event',  label:'Mass Extinction',      icon:'🦋', points:-8, modifiers:{globalEco:-8, wellbeing:-2, pollution:3}},
+  {id:13, type:'s-event',  label:'Public Restroom',      icon:'🚻', points:1, modifiers:{wellbeing:1, capital:1, vp:1}},
+  {id:14, type:'s-event',  label:'Bullet Train Launch',  icon:'🚄', points:3, modifiers:{capital:3, wellbeing:2, vp:1}},
+  {id:15, type:'s-event',  label:'Virus Outbreak',       icon:'🦠', points:-6, modifiers:{wellbeing:-6, capital:-2, globalEco:-1}},
+  {id:16, type:'s-event',  label:'Economic Boom',        icon:'📈', points:6, modifiers:{capital:6, pollution:-2, vp:1}},
+  {id:17, type:'s-event',  label:'Urban Heat Island',    icon:'🌡️', points:-4, modifiers:{wellbeing:-4, globalEco:-3, capital:-1}},
+  {id:18, type:'s-event',  label:'Old Age Population',   icon:'🏙️', points:2, modifiers:{capital:2, globalEco:-3, wellbeing:1}},
+
+  // RIGHT EDGE CORNER
+  {id:19, type:'s-corner', label:'WAR',                  icon:'⚔️', points:-8, modifiers:{capital:-8, wellbeing:-6, globalEco:-3, pollution:4}},
+  
+  // RIGHT EDGE (17 cards: top→bottom)
+  {id:20, type:'s-event',  label:'Satellite Internet',   icon:'🛰️', points:5, modifiers:{capital:5, wellbeing:3, pollution:-1, vp:1}},
+  {id:21, type:'s-event',  label:'Labour Shortage',      icon:'⚒️', points:-2, modifiers:{capital:-2, wellbeing:-1}},
+  {id:22, type:'s-event',  label:'Public Swimming Pool', icon:'🏊', points:2, modifiers:{wellbeing:2, capital:1}},
+  {id:23, type:'s-event',  label:'Resources Drain',      icon:'🛢️', points:-4, modifiers:{capital:-4, globalEco:-2}},
+  {id:24, type:'s-event',  label:'Government Collapse',  icon:'🏛️', points:-5, modifiers:{wellbeing:-5, capital:-3, globalEco:-1}},
+  {id:25, type:'s-event',  label:'Youth Leadership',     icon:'👦', points:3, modifiers:{wellbeing:3, capital:2, globalEco:1, vp:2}},
+  {id:26, type:'s-event',  label:'Public Library',       icon:'📚', points:2, modifiers:{wellbeing:2, capital:1, vp:1}},
+  {id:27, type:'s-event',  label:'Heat Waves',           icon:'🔥', points:-5, modifiers:{wellbeing:-5, globalEco:-3, pollution:2}},
+  {id:28, type:'s-event',  label:'Rare Earth Minerals',  icon:'💎', points:2, modifiers:{capital:3, wellbeing:1, vp:1}},
+  {id:29, type:'s-event',  label:'Infrastructure Fatigue',icon:'🏗️', points:-4, modifiers:{capital:-4, wellbeing:-3, globalEco:-1}},
+  {id:30, type:'s-event',  label:'Cinema',               icon:'🍿', points:2, modifiers:{wellbeing:2, capital:1}},
+  {id:31, type:'s-event',  label:'Fire Station',         icon:'🚒', points:1, modifiers:{wellbeing:1, capital:1}},
+  {id:32, type:'s-event',  label:'Heritage Restoration', icon:'🏛️', points:2, modifiers:{wellbeing:2, capital:1}},
+  {id:33, type:'s-event',  label:'Park',                 icon:'🌳', points:2, modifiers:{wellbeing:2, globalEco:1, capital:1}},
+  {id:34, type:'s-event',  label:'Odd Even Rule',        icon:'🚗', points:2, modifiers:{pollution:-3, wellbeing:1}},
+  {id:35, type:'s-event',  label:'Community Garden',     icon:'🌱', points:2, modifiers:{wellbeing:2, globalEco:2, capital:1, vp:1}},
+
+  // BOTTOM EDGE CORNER
+  {id:36, type:'s-corner', label:'RENEWABLE ENERGY',     icon:'⚡', points:4, modifiers:{capital:4, pollution:-5, globalEco:3, vp:2}},
+  
+  // BOTTOM EDGE (17 cards: right→left)
+  {id:37, type:'s-event',  label:'Wildlife Protection',  icon:'🦌', points:3, modifiers:{globalEco:3, wellbeing:1, vp:1}},
+  {id:38, type:'s-event',  label:'Industrialization',    icon:'🏭', points:1, modifiers:{capital:4, pollution:5}},
+  {id:39, type:'s-event',  label:'Nuclear Waste Leak',   icon:'☢️', points:-10, modifiers:{pollution:10, globalEco:-6, wellbeing:-5, capital:-2}},
+  {id:40, type:'s-event',  label:'Trust Issues',         icon:'🤝', points:-2, modifiers:{wellbeing:-2, capital:-1}},
+  {id:41, type:'s-event',  label:'Reforestation Success',icon:'🌲', points:3, modifiers:{globalEco:4, pollution:-2}},
+  {id:42, type:'s-event',  label:'River Fish Collapse',  icon:'🐟', points:-4, modifiers:{globalEco:-5, wellbeing:-2}},
+  {id:43, type:'s-event',  label:'Zero Emission Fleet',  icon:'🚙', points:3, modifiers:{pollution:-4, capital:2}},
+  {id:44, type:'s-event',  label:'Tsunami Hits',         icon:'🌊', points:-7, modifiers:{capital:-7, wellbeing:-5, globalEco:-3, land:-2}},
+  {id:45, type:'s-event',  label:'Nuclear Attacks',      icon:'💣', points:-10, modifiers:{capital:-10, wellbeing:-8, globalEco:-5, pollution:8}},
+  {id:46, type:'s-event',  label:'Construction',         icon:'🏗️', points:1, modifiers:{capital:2, wellbeing:1}},
+  {id:47, type:'s-event',  label:'Amphitheatre',         icon:'🎪', points:2, modifiers:{wellbeing:2, capital:1, vp:1}},
+  {id:48, type:'s-event',  label:'Population Explosion', icon:'🏙️', points:2, modifiers:{capital:2, globalEco:-3, wellbeing:1}},
+  {id:49, type:'s-event',  label:'Plastic Eating Bacteria',icon:'🔬', points:3, modifiers:{pollution:-5, globalEco:2}},
+  {id:50, type:'s-event',  label:'EV Hubs',              icon:'🔌', points:2, modifiers:{capital:2, pollution:-3}},
+  {id:51, type:'s-event',  label:'Food Shortage',        icon:'🌾', points:-5, modifiers:{wellbeing:-5, capital:-3, globalEco:-2}},
+  {id:52, type:'s-event',  label:'Stock Exchange',       icon:'📊', points:1, modifiers:{capital:4, wellbeing:0}},
+  {id:53, type:'s-event',  label:'Biodiversity Loss',    icon:'🦋', points:-4, modifiers:{globalEco:-4, wellbeing:-1, capital:-1}},
+
+  // LEFT EDGE CORNER
+  {id:54, type:'s-corner', label:'LONELINESS',           icon:'😢', points:-2, modifiers:{wellbeing:-4, capital:-1, globalEco:-1}},
+  
+  // LEFT EDGE (17 cards: bottom→top)
+  {id:55, type:'s-event',  label:'Ocean Plastic Cleanup',icon:'🌊', points:3, modifiers:{globalEco:4, pollution:-3, capital:1, vp:2}},
+  {id:56, type:'s-event',  label:'Data Centre',          icon:'🖥️', points:1, modifiers:{capital:3, wellbeing:1, pollution:2}},
+  {id:57, type:'s-event',  label:'Desertification',      icon:'🏜️', points:-4, modifiers:{globalEco:-4, land:-2}},
+  {id:58, type:'s-event',  label:'Public School',        icon:'🎓', points:2, modifiers:{wellbeing:2, capital:1, vp:1}},
+  {id:59, type:'s-event',  label:'Carbon Capture',       icon:'💨', points:4, modifiers:{capital:2, pollution:-4, globalEco:4, vp:2}},
+  {id:60, type:'s-event',  label:'Glass Plant',          icon:'🏭', points:1, modifiers:{capital:2, pollution:2, globalEco:-1}},
+  {id:61, type:'s-event',  label:'Farmers Market',       icon:'🥕', points:2, modifiers:{capital:2, wellbeing:2, globalEco:1, vp:1}},
+  {id:62, type:'s-event',  label:'Smart Grid',           icon:'⚡', points:3, modifiers:{capital:3, pollution:-3, globalEco:2, vp:1}},
+  {id:63, type:'s-event',  label:'Innovation',           icon:'💡', points:4, modifiers:{capital:4, wellbeing:2, vp:2}},
+  {id:64, type:'s-event',  label:'Cyber Center',         icon:'💻', points:2, modifiers:{capital:3, wellbeing:1, vp:1}},
+  {id:65, type:'s-event',  label:'Public Hospital',      icon:'🏥', points:2, modifiers:{wellbeing:3, capital:1, vp:1}},
+  {id:66, type:'s-event',  label:'Symphony of Birds',    icon:'🎶', points:2, modifiers:{globalEco:3, wellbeing:2, vp:1}},
+  {id:67, type:'s-event',  label:'Pollution Disaster',   icon:'☢️', points:-6, modifiers:{globalEco:-5, wellbeing:-4, pollution:7}},
+  {id:68, type:'s-event',  label:'Subways',              icon:'🚇', points:3, modifiers:{capital:2, wellbeing:2, pollution:-2, vp:1}},
+  {id:69, type:'s-event',  label:'Community Hall',       icon:'🏛️', points:2, modifiers:{wellbeing:2, capital:1}},
+  {id:70, type:'s-event',  label:'Organic Farming',      icon:'🌱', points:3, modifiers:{capital:1, globalEco:3, wellbeing:2, vp:1}},
+  {id:71, type:'s-event',  label:'Heavy Machinery',      icon:'🏗️', points:1, modifiers:{capital:2, pollution:4, globalEco:-1}},
 ];
 
 /* ================================================================
-   CENTER LINES — 52 inner spaces
-   Blueprint:
+   CENTER LINES — 56 inner spaces (new layout from Plan.txt)
    4 Orthogonal lines × 6 spaces each = 24
-   4 Diagonal lines  × 7 spaces each = 28
-   Total = 52
-
-   Directions: UP=north, RIGHT=east, DOWN=south, LEFT=west
-   Diagonals: TR=NE, BR=SE, BL=SW, TL=NW
-
-   Each inner space has:
-   - id: string (e.g. 'UP1', 'TR3')
-   - name, icon, type (s-inner-up/right/down/left/diag)
-   - cardRef: matches a card in CRISIS/DILEMMA/EVENT/WONDER
+   4 Diagonal lines × 8 spaces each = 32
+   Total = 56
    ================================================================ */
 const INNER_SPACES = [
-  // ORTHOGONAL UP (6 spaces, space 1=nearest outer, 6=nearest center)
-  {id:'UP1',dir:'up',name:'Planet Regeneration',  icon:'🌍',type:'s-inner-up',  cardRef:'Planet Regeneration'},
-  {id:'UP2',dir:'up',name:'Nuclear Strike',        icon:'💣',type:'s-inner-up',  cardRef:'Nuclear Strike'},
-  {id:'UP3',dir:'up',name:'Economic Boom',         icon:'📈',type:'s-inner-up',  cardRef:'Economic Boom'},
-  {id:'UP4',dir:'up',name:'Desert Expansion',      icon:'🏜️',type:'s-inner-up', cardRef:'Desert Expansion'},
-  {id:'UP5',dir:'up',name:'Green Bond Issuance',   icon:'💵',type:'s-inner-up',  cardRef:'Green Bond Issuance'},
-  {id:'UP6',dir:'up',name:'Ocean Plastic Cleanup', icon:'🌊',type:'s-inner-up',  cardRef:'Ocean Plastic Cleanup'},
-  // ORTHOGONAL RIGHT (6 spaces)
-  {id:'RI1',dir:'right',name:'Ozone Layer Repaired',        icon:'🌍',type:'s-inner-right',cardRef:'Ozone Layer Repaired'},
-  {id:'RI2',dir:'right',name:'Pandemic',                    icon:'🦠',type:'s-inner-right',cardRef:'Pandemic'},
-  {id:'RI3',dir:'right',name:'Carbon Capture Breakthrough', icon:'🔭',type:'s-inner-right',cardRef:'Carbon Capture Breakthrough'},
-  {id:'RI4',dir:'right',name:'Forest Fire Prevention',      icon:'🔥',type:'s-inner-right',cardRef:'Forest Fire Prevention'},
-  {id:'RI5',dir:'right',name:'Record Harvest',              icon:'🌾',type:'s-inner-right',cardRef:'Record Harvest'},
-  {id:'RI6',dir:'right',name:'Carbon Capture Project',      icon:'🏭',type:'s-inner-right',cardRef:'Carbon Capture Project'},
-  // ORTHOGONAL DOWN (6 spaces)
-  {id:'DN1',dir:'down',name:'Freshwater Aquifer Disc.',    icon:'💧',type:'s-inner-down',cardRef:'Freshwater Aquifer Discovered'},
-  {id:'DN2',dir:'down',name:'Grid Attack',                 icon:'⚡',type:'s-inner-down',cardRef:'Grid Attack'},
-  {id:'DN3',dir:'down',name:'Sustainable City Award',      icon:'🏆',type:'s-inner-down',cardRef:'Sustainable City Award'},
-  {id:'DN4',dir:'down',name:'Water Resource Decision',     icon:'💧',type:'s-inner-down',cardRef:'Water Resource Decision'},
-  {id:'DN5',dir:'down',name:'Renewable Breakthrough',      icon:'⚡',type:'s-inner-down',cardRef:'Renewable Breakthrough'},
-  {id:'DN6',dir:'down',name:'Climate Refugee Settlement',  icon:'🏠',type:'s-inner-down',cardRef:'Climate Refugee Settlement'},
-  // ORTHOGONAL LEFT (6 spaces)
-  {id:'LF1',dir:'left',name:'Philanthropic Donation',  icon:'🤝',type:'s-inner-left',cardRef:'Philanthropic Donation'},
-  {id:'LF2',dir:'left',name:'Famine',                  icon:'🌾',type:'s-inner-left',cardRef:'Famine'},
-  {id:'LF3',dir:'left',name:'Engineering Convention',  icon:'🔬',type:'s-inner-left',cardRef:'Engineering Convention'},
-  {id:'LF4',dir:'left',name:'Forest Decision',         icon:'🌲',type:'s-inner-left',cardRef:'Forest Decision'},
-  {id:'LF5',dir:'left',name:'Heritage Restoration',    icon:'🏛️',type:'s-inner-left',cardRef:'Heritage Restoration'},
-  {id:'LF6',dir:'left',name:'River Dam',               icon:'💧',type:'s-inner-left',cardRef:'River Dam'},
-  // DIAGONAL TOP-RIGHT (7 spaces)
-  {id:'TR1',dir:'tr',name:'Butterfly Storm',      icon:'🦋',type:'s-inner-diag',cardRef:'Butterfly Storm'},
-  {id:'TR2',dir:'tr',name:'Gov. Collapse',         icon:'🏛️',type:'s-inner-diag',cardRef:'Government Collapse'},
-  {id:'TR3',dir:'tr',name:'Symphony of Birds',     icon:'🐦',type:'s-inner-diag',cardRef:'Symphony of Birds'},
-  {id:'TR4',dir:'tr',name:'Rare Minerals',         icon:'⛰️',type:'s-inner-diag',cardRef:'Rare Minerals'},
-  {id:'TR5',dir:'tr',name:'University Tech Park',  icon:'🎓',type:'s-inner-diag',cardRef:'University Tech Park'},
-  {id:'TR6',dir:'tr',name:'War',                   icon:'⚔️',type:'s-inner-diag',cardRef:'War'},
-  {id:'TR7',dir:'tr',name:'Energy Demand Spike',   icon:'⚡',type:'s-inner-diag',cardRef:'Energy Demand Spike'},
-  // DIAGONAL BOTTOM-RIGHT (7 spaces)
-  {id:'BR1',dir:'br',name:'Great Forest Awakening',  icon:'🌳',type:'s-inner-diag',cardRef:'Great Forest Awakening'},
-  {id:'BR2',dir:'br',name:'Nuclear Accident',         icon:'☢️',type:'s-inner-diag',cardRef:'Nuclear Accident'},
-  {id:'BR3',dir:'br',name:'Golden Pollination Season',icon:'🌸',type:'s-inner-diag',cardRef:'Golden Pollination Season'},
-  {id:'BR4',dir:'br',name:'Sea Turtle Beach',         icon:'🐢',type:'s-inner-diag',cardRef:'Sea Turtle Beach'},
-  {id:'BR5',dir:'br',name:'Plastic-Eating Bacteria',  icon:'🦠',type:'s-inner-diag',cardRef:'Plastic-Eating Bacteria'},
-  {id:'BR6',dir:'br',name:'Climate Change',           icon:'🌡️',type:'s-inner-diag',cardRef:'Climate Change'},
-  {id:'BR7',dir:'br',name:'Blue Whales Return',       icon:'🐋',type:'s-inner-diag',cardRef:'Blue Whales Return'},
-  // DIAGONAL BOTTOM-LEFT (7 spaces)
-  {id:'BL1',dir:'bl',name:'Firefly Night',         icon:'✨',type:'s-inner-diag',cardRef:'Firefly Night'},
-  {id:'BL2',dir:'bl',name:'Financial Crisis',      icon:'📉',type:'s-inner-diag',cardRef:'Financial Crisis'},
-  {id:'BL3',dir:'bl',name:'Biodiversity Jackpot',  icon:'🏆',type:'s-inner-diag',cardRef:'Biodiversity Jackpot'},
-  {id:'BL4',dir:'bl',name:'Climate Summit Dilemma',icon:'🌏',type:'s-inner-diag',cardRef:'Climate Summit Dilemma'},
-  {id:'BL5',dir:'bl',name:'Beehive Fence Success', icon:'🐝',type:'s-inner-diag',cardRef:'Beehive Fence Success'},
-  {id:'BL6',dir:'bl',name:'Water Scarcity',        icon:'💧',type:'s-inner-diag',cardRef:'Water Scarcity'},
-  {id:'BL7',dir:'bl',name:'Population',            icon:'🏙️',type:'s-inner-diag',cardRef:'Population Growth'},
-  // DIAGONAL TOP-LEFT (7 spaces)
-  {id:'TL1',dir:'tl',name:'Waste-to-Energy Plant', icon:'♻️',type:'s-inner-diag',cardRef:'Waste-to-Energy Positive'},
-  {id:'TL2',dir:'tl',name:'Cyber Attacks',          icon:'💻',type:'s-inner-diag',cardRef:'Cyber Attacks'},
-  {id:'TL3',dir:'tl',name:'Smart Grid Integration', icon:'💡',type:'s-inner-diag',cardRef:'Smart Grid Integration'},
-  {id:'TL4',dir:'tl',name:'Wind Energy',            icon:'🌬️',type:'s-inner-diag',cardRef:'Wind Energy Proposal'},
-  {id:'TL5',dir:'tl',name:'Coral Reef Restoration', icon:'🐠',type:'s-inner-diag',cardRef:'Coral Reef Restoration'},
-  {id:'TL6',dir:'tl',name:'Old Trees',              icon:'🌳',type:'s-inner-diag',cardRef:'Old Trees'},
-  {id:'TL7',dir:'tl',name:'Zero-Emission Fleet',    icon:'🚌',type:'s-inner-diag',cardRef:'Zero-Emission Fleet'},
+  // HORIZONTAL LEFT (6 spaces, moving toward center)
+  {id:'HL1',dir:'left',name:'Pandemic',            icon:'🦠', type:'s-inner-left', points:-8, modifiers:{wellbeing:-8, capital:-3, globalEco:-1}},
+  {id:'HL2',dir:'left',name:'Bike Lane',           icon:'🚴', type:'s-inner-left', points:2, modifiers:{pollution:-2, wellbeing:2, globalEco:1, vp:1}},
+  {id:'HL3',dir:'left',name:'Forest Fire',         icon:'🔥', type:'s-inner-left', points:-3, modifiers:{globalEco:-5, pollution:4, wellbeing:-2}},
+  {id:'HL4',dir:'left',name:'Oil Spill',           icon:'🛢️', type:'s-inner-left', points:-6, modifiers:{globalEco:-6, wellbeing:-2, pollution:5}},
+  {id:'HL5',dir:'left',name:'Deforestation',       icon:'🌲', type:'s-inner-left', points:-4, modifiers:{globalEco:-4, wellbeing:-2, capital:-1}},
+  {id:'HL6',dir:'left',name:'Carbon Capture',      icon:'💨', type:'s-inner-left', points:4, modifiers:{capital:2, pollution:-4, globalEco:4, vp:2}},
+
+  // HORIZONTAL RIGHT (6 spaces, moving toward center)
+  {id:'HR1',dir:'right',name:'Biogas Plant',       icon:'🌾', type:'s-inner-right', points:3, modifiers:{capital:2, pollution:-2, globalEco:3, vp:1}},
+  {id:'HR2',dir:'right',name:'Innovation Crisis',  icon:'🧑‍🔬', type:'s-inner-right', points:-4, modifiers:{capital:-4, wellbeing:-2, land:-1}},
+  {id:'HR3',dir:'right',name:'Cyber Attack',       icon:'💻', type:'s-inner-right', points:-5, modifiers:{capital:-5, wellbeing:-2}},
+  {id:'HR4',dir:'right',name:'Carbon Tax',         icon:'💰', type:'s-inner-right', points:2, modifiers:{capital:-1, pollution:-3, globalEco:3, vp:1}},
+  {id:'HR5',dir:'right',name:'Skating Rink',       icon:'⛸️', type:'s-inner-right', points:1, modifiers:{wellbeing:2, capital:1}},
+  {id:'HR6',dir:'right',name:'Microplastic Toxicity',icon:'🔬', type:'s-inner-right', points:-4, modifiers:{wellbeing:-4, pollution:5, capital:-1}},
+
+  // VERTICAL TOP (6 spaces, moving down toward center)
+  {id:'VT1',dir:'up',name:'Textile',              icon:'👗', type:'s-inner-up', points:1, modifiers:{capital:2, pollution:3}},
+  {id:'VT2',dir:'up',name:'Terrorism',            icon:'💣', type:'s-inner-up', points:-6, modifiers:{wellbeing:-6, capital:-2}},
+  {id:'VT3',dir:'up',name:'Record Harvest',       icon:'🧺', type:'s-inner-up', points:3, modifiers:{wellbeing:2, globalEco:2}},
+  {id:'VT4',dir:'up',name:'AI Disruption',        icon:'🤖', type:'s-inner-up', points:-4, modifiers:{capital:-4, wellbeing:-2}},
+  {id:'VT5',dir:'up',name:'Petrochemical',        icon:'🛢️', type:'s-inner-up', points:1, modifiers:{capital:2, pollution:6, globalEco:-2}},
+  {id:'VT6',dir:'up',name:'Open Gym',             icon:'💪', type:'s-inner-up', points:2, modifiers:{wellbeing:2, vp:1}},
+
+  // VERTICAL BOTTOM (6 spaces, moving up toward center)
+  {id:'VB1',dir:'down',name:'Rainwater Harvesting',icon:'💧', type:'s-inner-down', points:2, modifiers:{globalEco:2, wellbeing:1}},
+  {id:'VB2',dir:'down',name:'Museum',             icon:'🖼️', type:'s-inner-down', points:2, modifiers:{wellbeing:2, capital:2, vp:1}},
+  {id:'VB3',dir:'down',name:'Energy Demand Spike',icon:'⚡', type:'s-inner-down', points:-3, modifiers:{capital:-4, globalEco:-1}},
+  {id:'VB4',dir:'down',name:'Sewage Treatment',   icon:'🏗️', type:'s-inner-down', points:2, modifiers:{globalEco:2, pollution:-3}},
+  {id:'VB5',dir:'down',name:'Quantum Hub & Tech', icon:'⚛️', type:'s-inner-down', points:4, modifiers:{capital:4, vp:2}},
+  {id:'VB6',dir:'down',name:'Planetary Restoration',icon:'🌍', type:'s-inner-down', points:5, modifiers:{globalEco:5, pollution:-4}},
+
+  // DIAGONAL TOP-LEFT (8 spaces)
+  {id:'TL1',dir:'tl',name:'Textile',              icon:'👗', type:'s-inner-diag', points:1, modifiers:{capital:2, pollution:3}},
+  {id:'TL2',dir:'tl',name:'Terrorism',            icon:'💣', type:'s-inner-diag', points:-6, modifiers:{wellbeing:-6, capital:-2}},
+  {id:'TL3',dir:'tl',name:'Record Harvest',       icon:'🧻', type:'s-inner-diag', points:3, modifiers:{wellbeing:2, globalEco:2}},
+  {id:'TL4',dir:'tl',name:'AI Disruption',        icon:'🤖', type:'s-inner-diag', points:-4, modifiers:{capital:-4, wellbeing:-2}},
+  {id:'TL5',dir:'tl',name:'Petrochemicals',       icon:'🛢️', type:'s-inner-diag', points:1, modifiers:{capital:2, pollution:6, globalEco:-2}},
+  {id:'TL6',dir:'tl',name:'Open Gym',             icon:'💪', type:'s-inner-diag', points:2, modifiers:{wellbeing:2, vp:1}},
+  {id:'TL7',dir:'tl',name:'Chip Shortage',        icon:'💾', type:'s-inner-diag', points:-3, modifiers:{capital:-3, wellbeing:-1}},
+  {id:'TL8',dir:'tl',name:'Social Inequality',    icon:'⚖️', type:'s-inner-diag', points:-4, modifiers:{wellbeing:-4, capital:-2, globalEco:-1}},
+
+  // DIAGONAL TOP-RIGHT (8 spaces)
+  {id:'TR1',dir:'tr',name:'Cemetery',             icon:'🪦', type:'s-inner-diag', points:-1, modifiers:{wellbeing:-1}},
+  {id:'TR2',dir:'tr',name:'Waste Collection',     icon:'🚛', type:'s-inner-diag', points:2, modifiers:{capital:1, wellbeing:1, globalEco:1, vp:1}},
+  {id:'TR3',dir:'tr',name:'Solar Farm',           icon:'☀️', type:'s-inner-diag', points:3, modifiers:{capital:3, pollution:-4, globalEco:3, vp:1}},
+  {id:'TR4',dir:'tr',name:'Quarrying',            icon:'⛏️', type:'s-inner-diag', points:-1, modifiers:{capital:2, land:-2, globalEco:-1}},
+  {id:'TR5',dir:'tr',name:'Brain Drain',          icon:'🧠', type:'s-inner-diag', points:-3, modifiers:{capital:-3, wellbeing:-2, land:-1}},
+  {id:'TR6',dir:'tr',name:'Crisis Shelter',       icon:'🏚️', type:'s-inner-diag', points:-2, modifiers:{wellbeing:-2, capital:-1, globalEco:-1}},
+  {id:'TR7',dir:'tr',name:'Data Leak',            icon:'📊', type:'s-inner-diag', points:-4, modifiers:{capital:-4, wellbeing:-3}},
+  {id:'TR8',dir:'tr',name:'Water Dispenser',      icon:'💧', type:'s-inner-diag', points:1, modifiers:{wellbeing:1, capital:1}},
+
+  // DIAGONAL BOTTOM-RIGHT (8 spaces)
+  {id:'BR1',dir:'br',name:'Rainwater Harvesting',icon:'💧', type:'s-inner-diag', points:2, modifiers:{globalEco:2, wellbeing:1}},
+  {id:'BR2',dir:'br',name:'Museum',               icon:'🖼️', type:'s-inner-diag', points:2, modifiers:{wellbeing:2, capital:2, vp:1}},
+  {id:'BR3',dir:'br',name:'Energy Demand Spike',  icon:'⚡', type:'s-inner-diag', points:-3, modifiers:{capital:-4, globalEco:-1}},
+  {id:'BR4',dir:'br',name:'Sewage Treatment',     icon:'🏗️', type:'s-inner-diag', points:2, modifiers:{globalEco:2, pollution:-3}},
+  {id:'BR5',dir:'br',name:'Quantum Hub & Tech',   icon:'⚛️', type:'s-inner-diag', points:4, modifiers:{capital:4, vp:2}},
+  {id:'BR6',dir:'br',name:'Planetary Restoration',icon:'🌍', type:'s-inner-diag', points:5, modifiers:{globalEco:5, pollution:-4}},
+  {id:'BR7',dir:'br',name:'Water Treatment Plant',icon:'🏗️', type:'s-inner-diag', points:3, modifiers:{globalEco:3, pollution:-2, capital:2, vp:1}},
+  {id:'BR8',dir:'br',name:'Clock Tower',          icon:'🕐', type:'s-inner-diag', points:1, modifiers:{wellbeing:1, capital:1}},
+
+  // DIAGONAL BOTTOM-LEFT (8 spaces)
+  {id:'BL1',dir:'bl',name:'Wildlife Corridor',    icon:'🦌', type:'s-inner-diag', points:3, modifiers:{globalEco:4, wellbeing:1, capital:1, vp:1}},
+  {id:'BL2',dir:'bl',name:'Refugee Crisis',       icon:'🏠', type:'s-inner-diag', points:-3, modifiers:{capital:-3, wellbeing:-4, globalEco:-1}},
+  {id:'BL3',dir:'bl',name:'Sports Complex',       icon:'⚽', type:'s-inner-diag', points:2, modifiers:{wellbeing:2, capital:1, vp:1}},
+  {id:'BL4',dir:'bl',name:'Water Scarcity',       icon:'💧', type:'s-inner-diag', points:-3, modifiers:{wellbeing:-3, globalEco:-2, capital:-1}},
+  {id:'BL5',dir:'bl',name:'Logging',              icon:'🪵', type:'s-inner-diag', points:-2, modifiers:{globalEco:-3, capital:1, wellbeing:-1}},
+  {id:'BL6',dir:'bl',name:'Carbon Credit',        icon:'💚', type:'s-inner-diag', points:2, modifiers:{capital:2, globalEco:2, pollution:-1, vp:1}},
+  {id:'BL7',dir:'bl',name:'Unemployment',         icon:'👤', type:'s-inner-diag', points:-4, modifiers:{capital:-4, wellbeing:-4, globalEco:-1}},
+  {id:'BL8',dir:'bl',name:'Semiconductor',        icon:'💾', type:'s-inner-diag', points:2, modifiers:{capital:3, wellbeing:1, vp:1}},
 ];
 
 /* ================================================================

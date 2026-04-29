@@ -116,51 +116,58 @@ function buildBoard(){
   const sideH = 6.35*f;
 
   // --- Outer Loop Positions ---
-  // Side spacing: 19 spaces per side, distributed evenly
+  // New layout: 17 spaces per side (not 19)
   const TOP_Y    = 0;
   const BOT_Y    = H - sideH;
   const LEFT_X   = 0;
-  const RIGHT_X  = W - sideH; // sideH because rotated
+  const RIGHT_X  = W - sideH;
 
-  const sideLen  = W - 2*cornerSz; // available for 19 spaces
-  const sideStep = sideLen / 19;
+  const sideLen  = W - 2*cornerSz; // available for horizontal spacing
+  const sideStep = sideLen / 17;   // 17 spaces per side (TOP and BOTTOM)
+  
+  // Vertical spacing: RIGHT has 16 spaces, LEFT has 17 spaces
+  const rightSideAvail = H - 2*cornerSz;
+  const rightStep = rightSideAvail / 16;  // 16 spaces on RIGHT side
+  const leftStep = rightSideAvail / 17;   // 17 spaces on LEFT side
 
   // Space width for each side
   const spW_top  = sideStep - 1;
   const spH_top  = sideH;
   const spW_side = sideH;       // rotated
-  const spH_side = sideStep - 1;
+  // Use reduced heights for vertical sides to prevent overlap
+  const spH_right = rightStep - 1;  // Height for RIGHT side
+  const spH_left = leftStep - 1;    // Height for LEFT side
 
   const pos = {};
 
   // Corner 1 (space 1, START) — top-left
   pos[1]  = {x:0, y:0, w:cornerSz, h:cornerSz};
-  // Corner 2 (space 21, Terrorism) — top-right
-  pos[21] = {x:W-cornerSz, y:0, w:cornerSz, h:cornerSz};
-  // Corner 3 (space 41, Deforestation) — bottom-right
-  pos[41] = {x:W-cornerSz, y:H-cornerSz, w:cornerSz, h:cornerSz};
-  // Corner 4 (space 61, Pollution Disaster) — bottom-left
-  pos[61] = {x:0, y:H-cornerSz, w:cornerSz, h:cornerSz};
+  // Corner 2 (space 19, WAR) — top-right
+  pos[19] = {x:W-cornerSz, y:0, w:cornerSz, h:cornerSz};
+  // Corner 3 (space 36, RENEWABLE ENERGY) — bottom-right
+  pos[36] = {x:W-cornerSz, y:H-cornerSz, w:cornerSz, h:cornerSz};
+  // Corner 4 (space 54, LONELINESS) — bottom-left
+  pos[54] = {x:0, y:H-cornerSz, w:cornerSz, h:cornerSz};
 
-  // Side 1: spaces 2-20, top row left→right (after corner 1, before corner 2)
-  for(let i=0;i<19;i++){
+  // Side 1: spaces 2-18, top row left→right (17 spaces after corner 1, before corner 2)
+  for(let i=0;i<17;i++){
     const id=i+2;
     pos[id]={x:cornerSz+i*sideStep, y:0, w:spW_top, h:spH_top};
   }
-  // Side 2: spaces 22-40, right col top→bottom
-  for(let i=0;i<19;i++){
-    const id=i+22;
-    pos[id]={x:W-spW_side, y:cornerSz+i*sideStep, w:spW_side, h:spH_side};
+  // Side 2: spaces 20-35, right col top→bottom (16 spaces after corner 2, before corner 3)
+  for(let i=0;i<16;i++){
+    const id=i+20;
+    pos[id]={x:W-spW_side, y:cornerSz+i*rightStep, w:spW_side, h:spH_right};
   }
-  // Side 3: spaces 42-60, bottom row right→left
-  for(let i=0;i<19;i++){
-    const id=i+42;
+  // Side 3: spaces 37-53, bottom row right→left (17 spaces after corner 3, before corner 4)
+  for(let i=0;i<17;i++){
+    const id=i+37;
     pos[id]={x:W-cornerSz-(i+1)*sideStep+1, y:H-spH_top, w:spW_top, h:spH_top};
   }
-  // Side 4: spaces 62-80, left col bottom→top
-  for(let i=0;i<19;i++){
-    const id=i+62;
-    pos[id]={x:0, y:H-cornerSz-(i+1)*sideStep+1, w:spW_side, h:spH_side};
+  // Side 4: spaces 55-71, left col bottom→top (17 spaces after corner 4, wrapping back to start)
+  for(let i=0;i<17;i++){
+    const id=i+55;
+    pos[id]={x:0, y:H-cornerSz-(i+1)*leftStep+1, w:spW_side, h:spH_left};
   }
 
   // Compute centers
@@ -182,68 +189,73 @@ function buildBoard(){
   const diag_len= 6.86*f;
   const diag_wid= 5.08*f;
 
-  // UP line: from top outer edge → center, spaces placed N→S (UP1 nearest outer)
-  // Available height: from iT+ort_wid/2 to cY-hubR
+  // UP line: from top outer edge → center, spaces placed N→S (VT1 nearest outer, now 6 spaces)
   const upAvail = cY - hubR - iT;
   const upStep  = upAvail / 6;
   for(let i=0;i<6;i++){
-    const id='UP'+(i+1);
+    const spaceNames = ['VT1','VT2','VT3','VT4','VT5','VT6'];
+    const id = spaceNames[i];
     const cx=cX, cy=iT + i*upStep + upStep/2;
     pos[id]={x:cx-ort_wid/2, y:cy-ort_len/2, w:ort_wid, h:ort_len, cx, cy};
   }
-  // RIGHT line: from right outer → center, spaces W→E (RI1 nearest outer)
+  // RIGHT line: from right outer → center (HR1-HR6, 6 spaces)
   const riAvail = iR - (cX + hubR);
   const riStep  = riAvail / 6;
   for(let i=0;i<6;i++){
-    const id='RI'+(i+1);
+    const spaceNames = ['HR1','HR2','HR3','HR4','HR5','HR6'];
+    const id = spaceNames[i];
     const cx=iR - i*riStep - riStep/2, cy=cY;
     pos[id]={x:cx-ort_len/2, y:cy-ort_wid/2, w:ort_len, h:ort_wid, cx, cy};
   }
-  // DOWN line: from bottom outer → center (DN1 nearest outer)
+  // DOWN line: from bottom outer → center (VB1-VB6, 6 spaces)
   const dnAvail = iB - (cY + hubR);
   const dnStep  = dnAvail / 6;
   for(let i=0;i<6;i++){
-    const id='DN'+(i+1);
+    const spaceNames = ['VB1','VB2','VB3','VB4','VB5','VB6'];
+    const id = spaceNames[i];
     const cx=cX, cy=iB - i*dnStep - dnStep/2;
     pos[id]={x:cx-ort_wid/2, y:cy-ort_len/2, w:ort_wid, h:ort_len, cx, cy};
   }
-  // LEFT line: from left outer → center (LF1 nearest outer)
+  // LEFT line: from left outer → center (HL1-HL6, 6 spaces)
   const lfAvail = (cX - hubR) - iL;
   const lfStep  = lfAvail / 6;
   for(let i=0;i<6;i++){
-    const id='LF'+(i+1);
+    const spaceNames = ['HL1','HL2','HL3','HL4','HL5','HL6'];
+    const id = spaceNames[i];
     const cx=iL + i*lfStep + lfStep/2, cy=cY;
     pos[id]={x:cx-ort_len/2, y:cy-ort_wid/2, w:ort_len, h:ort_wid, cx, cy};
   }
 
-  // Diagonal lines
-  // TR (Top-Right): from top-right corner area → center, NE→SW (TR1 nearest outer)
-  const diagDist = Math.min(iW,iH)*0.5 - hubR; // approx
-  const trStep = diagDist/7;
-  for(let i=0;i<7;i++){
-    const id='TR'+(i+1);
-    const t=((i+0.5)/7);
+  // Diagonal lines (8 spaces each now, not 7)
+  // TR (Top-Right): 8 spaces
+  for(let i=0;i<8;i++){
+    const spaceNames = ['TR1','TR2','TR3','TR4','TR5','TR6','TR7','TR8'];
+    const id = spaceNames[i];
+    const t=((i+0.5)/8);
     const cx=iR - t*(iR-cX), cy=iT + t*(cY-iT);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
-  // BR (Bottom-Right): SE→NW
-  for(let i=0;i<7;i++){
-    const id='BR'+(i+1);
-    const t=((i+0.5)/7);
+  // BR (Bottom-Right): 8 spaces
+  for(let i=0;i<8;i++){
+    const spaceNames = ['BR1','BR2','BR3','BR4','BR5','BR6','BR7','BR8'];
+    const id = spaceNames[i];
+    const t=((i+0.5)/8);
     const cx=iR - t*(iR-cX), cy=iB - t*(iB-cY);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
-  // BL (Bottom-Left): SW→NE
-  for(let i=0;i<7;i++){
-    const id='BL'+(i+1);
-    const t=((i+0.5)/7);
+  // BL (Bottom-Left): 8 spaces
+  for(let i=0;i<8;i++){
+    const spaceNames = ['BL1','BL2','BL3','BL4','BL5','BL6','BL7','BL8'];
+    const id = spaceNames[i];
+    const t=((i+0.5)/8);
     const cx=iL + t*(cX-iL), cy=iB - t*(iB-cY);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
-  // TL (Top-Left): NW→SE
-  for(let i=0;i<7;i++){
-    const id='TL'+(i+1);
-    const t=((i+0.5)/7);
+  // TL (Top-Left): 8 spaces
+  for(let i=0;i<8;i++){
+    const spaceNames = ['TL1','TL2','TL3','TL4','TL5','TL6','TL7','TL8'];
+    const id = spaceNames[i];
+    const t=((i+0.5)/8);
     const cx=iL + t*(cX-iL), cy=iT + t*(cY-iT);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
@@ -479,14 +491,15 @@ function doMove(){
     $('btnToOuter').onclick=()=>{ p.onInner=false; p.innerId=null; moveToken(p); log(`${p.name} returns to outer.`); afterMove(); };
   } else {
     const old=p.pos; let np=(typeof p.pos==='number'?p.pos:1)+G.total; let passedStart=false;
-    if(np>80){ np=((np-1)%80)+1; passedStart=true; }
+    // NEW: 71 spaces total (1 START + 3 corners + 17*4 sides = 72, but using 71 playable)
+    if(np>71){ np=((np-1)%71)+1; passedStart=true; }
     p.pos=np;
     if(passedStart||np===1){ p.capital+=2; log(`${p.name} passes START +2 Capital!`,'good'); }
     log(`${p.name} → Space ${np}.`);
     setMsg(`Moved to Space <b>${np}</b>${passedStart?' (+2 Capital)':''}`);
     moveToken(p); highlightSp(np); updateDash(p);
-    // Intersections: corners and mid-points
-    const ixSpaces=[1,10,20,21,30,40,41,50,60,61,70,80];
+    // NEW: Intersections updated for new layout - corners and mid-points on each side
+    const ixSpaces=[1,10,19,28,37,46,55,63];
     if(ixSpaces.includes(np)){
       setMsg(setMsg(`Space <b>${np}</b> — intersection! Enter inner path?`));
       setActions([{id:'btnStayOuter',label:'Stay Outer',cls:'green'},{id:'btnEnterInner',label:'Enter Inner Path',cls:'blue'}]);
@@ -497,11 +510,19 @@ function doMove(){
 }
 
 function offerInner(p,spId){
-  // Map space→ available inner line entry
-  const map={1:['UP','LF'],10:['UP'],20:['TR'],21:['TR','RI'],30:['RI'],40:['BR'],
-             41:['BR','DN'],50:['DN'],60:['BL'],61:['BL','LF'],70:['LF'],80:['TL']};
-  const dirs=map[spId]||['UP'];
-  const dirNames={UP:'↑ Eco Up',RI:'→ Industry Right',DN:'↓ Eco Down',LF:'← Well-being Left',TR:'↗ Top-Right Diagonal',BR:'↘ Bot-Right Diagonal',BL:'↙ Bot-Left Diagonal',TL:'↖ Top-Left Diagonal'};
+  // NEW: Map space→ available inner line entry (updated for new 71-space layout)
+  const map={
+    1:['VT','HL'],      // START - can enter Vertical Top or Horizontal Left
+    10:['VT'],          // TOP mid-point
+    19:['VT','HR'],     // WAR corner - can enter Vertical Top or Horizontal Right
+    28:['HR'],          // RIGHT mid-point
+    37:['HR','VB'],     // RENEWABLE ENERGY corner
+    46:['VB'],          // BOTTOM mid-point
+    55:['VB','HL'],     // LONELINESS corner
+    63:['HL']           // LEFT mid-point
+  };
+  const dirs=map[spId]||['VT'];
+  const dirNames={VT:'↑ Top Vertical',HR:'→ Right Horizontal',VB:'↓ Bottom Vertical',HL:'← Left Horizontal',TR:'↗ Top-Right Diagonal',BR:'↘ Bot-Right Diagonal',BL:'↙ Bot-Left Diagonal',TL:'↖ Top-Left Diagonal'};
   const acts=dirs.map(d=>({id:'inner-'+d,label:dirNames[d]||d,cls:'blue'}));
   acts.push({id:'stayOuter2',label:'Stay Outer',cls:'green'});
   setActions(acts);
@@ -547,19 +568,64 @@ function doResolve(){
   const activeSp= p.onInner ? innerSp : outerSp;
   if(!activeSp){ doOptBuild(false); return; }
 
-  const ref = activeSp.cardRef;
-  if(ref && CARD_DATA[ref]){
-    const cd=CARD_DATA[ref];
-    resolveCard(p,cd,ref);
+  // New event format with modifiers directly in space
+  if(activeSp.modifiers){
+    resolveNewEvent(p, activeSp);
   } else {
-    const t=activeSp.type||'';
-    if(t.includes('asset')){ resolveAsset(p); }
-    else if(t.includes('crisis')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='crisis'))); }
-    else if(t.includes('dilemma')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='dilemma'))); }
-    else if(t.includes('chain')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='chain'))); }
-    else if(t.includes('wonder')){ resolveWonder(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='wonder'))); }
-    else doOptBuild(false);
+    // Fallback to old CARD_DATA system if needed
+    const ref = activeSp.cardRef;
+    if(ref && CARD_DATA[ref]){
+      const cd=CARD_DATA[ref];
+      resolveCard(p,cd,ref);
+    } else {
+      const t=activeSp.type||'';
+      if(t.includes('asset')){ resolveAsset(p); }
+      else if(t.includes('crisis')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='crisis'))); }
+      else if(t.includes('dilemma')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='dilemma'))); }
+      else if(t.includes('chain')){ resolveCard(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='chain'))); }
+      else if(t.includes('wonder')){ resolveWonder(p,rnd(Object.values(CARD_DATA).filter(c=>c.type==='wonder'))); }
+      else doOptBuild(false);
+    }
   }
+}
+
+function resolveNewEvent(p, space){
+  // Apply modifiers from new event format
+  const mods = space.modifiers || {};
+  
+  if(mods.capital) p.capital = Math.max(0, p.capital + mods.capital);
+  if(mods.wellbeing) p.wellbeing = Math.max(0, p.wellbeing + mods.wellbeing);
+  if(mods.pollution) p.pollution = Math.max(0, Math.min(100, p.pollution + mods.pollution));
+  if(mods.globalEco) G.globalEco = Math.max(0, Math.min(100, G.globalEco + mods.globalEco));
+  if(mods.land) p.land = Math.max(0, p.land + mods.land);
+  if(mods.vp) p.vp = p.vp + mods.vp;
+
+  updateDash(p); updateEco(); updateVP();
+
+  // Build effect chips for display
+  const effects = [];
+  if(mods.capital) effects.push({label:`${mods.capital>0?'+':''}${mods.capital} Capital`, cls:'ch-cap'});
+  if(mods.wellbeing) effects.push({label:`${mods.wellbeing>0?'+':''}${mods.wellbeing} WB`, cls:'ch-wb'});
+  if(mods.pollution) effects.push({label:`${mods.pollution>0?'+':''}${mods.pollution} Pollution`, cls:'ch-pol'});
+  if(mods.globalEco) effects.push({label:`${mods.globalEco>0?'+':''}${mods.globalEco} Global Eco`, cls:'ch-eco'});
+  if(mods.land) effects.push({label:`${mods.land>0?'+':''}${mods.land} Land`, cls:'ch-land'});
+  if(mods.vp) effects.push({label:`${mods.vp>0?'+':''}${mods.vp} VP`, cls:'ch-vp'});
+
+  // Determine event type from points
+  let typeLabel = '📋 EVENT';
+  if(space.points > 0) typeLabel = '✨ POSITIVE';
+  else if(space.points < 0) typeLabel = '⚠️ NEGATIVE';
+
+  showCard({
+    type: typeLabel,
+    icon: space.icon,
+    name: space.label,
+    desc: `${space.label}`,
+    effects: effects,
+    onOk: ()=>{ if(!checkElim(p)) doOptBuild(false); }
+  });
+
+  log(`${p.name}: ${typeLabel} — ${space.label}`, space.points < 0 ? 'bad' : 'good');
 }
 
 function resolveCard(p,cd,name){

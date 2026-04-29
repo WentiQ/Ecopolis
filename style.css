@@ -183,6 +183,7 @@ html,body { width:100%; height:100%; font-family:'Rajdhani',sans-serif;
 
 /* Space type colours */
 .s-start  { background:linear-gradient(135deg,#f5e09a,#c8a030); color:#1a0f00; border-color:#5a3a18; }
+.s-corner { background:linear-gradient(135deg,#ff6b6b,#cc5555); color:#fff; border-color:#991111; box-shadow:inset 0 0 15px rgba(0,0,0,.3), 0 0 12px rgba(255,100,100,.4); }
 .s-asset  { background:#d8f0c8; color:#082808; border-color:#2a7a2a; }
 .s-crisis { background:#f4c0b8; color:#380808; border-color:#aa1808; }
 .s-event  { background:#c0d4f4; color:#081828; border-color:#2848aa; }
