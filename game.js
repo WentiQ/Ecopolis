@@ -73,7 +73,7 @@ function startGame(){
     G.players.push({
       id:i, name:ni?ni.value.trim()||PLAYER_NAMES_DEFAULT[i]:PLAYER_NAMES_DEFAULT[i],
       color:PLAYER_COLORS[i],
-      pos:1, onInner:false, innerId:null,
+      pos:1, onInner:false, innerId:null, innerDir:null, innerPath:null,
       capital:100, wellbeing:100, pollution:0, land:100, vp:0,
       echo:0, buildings:[], setCounts:{}, completedSets:{},
       centerVisits:0, eliminated:false, pendingChain:null,
@@ -144,10 +144,10 @@ function buildBoard(){
   pos[1]  = {x:0, y:0, w:cornerSz, h:cornerSz};
   // Corner 2 (space 19, WAR) — top-right
   pos[19] = {x:W-cornerSz, y:0, w:cornerSz, h:cornerSz};
-  // Corner 3 (space 36, RENEWABLE ENERGY) — bottom-right
-  pos[36] = {x:W-cornerSz, y:H-cornerSz, w:cornerSz, h:cornerSz};
-  // Corner 4 (space 54, LONELINESS) — bottom-left
-  pos[54] = {x:0, y:H-cornerSz, w:cornerSz, h:cornerSz};
+  // Corner 3 (space 37, RENEWABLE ENERGY) — bottom-right
+  pos[37] = {x:W-cornerSz, y:H-cornerSz, w:cornerSz, h:cornerSz};
+  // Corner 4 (space 55, LONELINESS) — bottom-left
+  pos[55] = {x:0, y:H-cornerSz, w:cornerSz, h:cornerSz};
 
   // Side 1: spaces 2-18, top row left→right (17 spaces after corner 1, before corner 2)
   for(let i=0;i<17;i++){
@@ -159,14 +159,14 @@ function buildBoard(){
     const id=i+20;
     pos[id]={x:W-spW_side, y:cornerSz+i*rightStep, w:spW_side, h:spH_right};
   }
-  // Side 3: spaces 37-53, bottom row right→left (17 spaces after corner 3, before corner 4)
+  // Side 3: spaces 38-54, bottom row right→left (17 spaces after corner 3, before corner 4)
   for(let i=0;i<17;i++){
-    const id=i+37;
+    const id=i+38;
     pos[id]={x:W-cornerSz-(i+1)*sideStep+1, y:H-spH_top, w:spW_top, h:spH_top};
   }
-  // Side 4: spaces 55-71, left col bottom→top (17 spaces after corner 4, wrapping back to start)
+  // Side 4: spaces 56-72, left col bottom→top (17 spaces after corner 4, wrapping back to start)
   for(let i=0;i<17;i++){
-    const id=i+55;
+    const id=i+56;
     pos[id]={x:0, y:H-cornerSz-(i+1)*leftStep+1, w:spW_side, h:spH_left};
   }
 
@@ -227,11 +227,13 @@ function buildBoard(){
   }
 
   // Diagonal lines (8 spaces each now, not 7)
+  // t range: start at 0.04 from outer corner, end at 0.78 (leaves gap before hub)
+  const diagTMin=0.04, diagTMax=0.78;
   // TR (Top-Right): 8 spaces
   for(let i=0;i<8;i++){
     const spaceNames = ['TR1','TR2','TR3','TR4','TR5','TR6','TR7','TR8'];
     const id = spaceNames[i];
-    const t=((i+0.5)/8);
+    const t=diagTMin + (i/7)*(diagTMax-diagTMin);
     const cx=iR - t*(iR-cX), cy=iT + t*(cY-iT);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
@@ -239,7 +241,7 @@ function buildBoard(){
   for(let i=0;i<8;i++){
     const spaceNames = ['BR1','BR2','BR3','BR4','BR5','BR6','BR7','BR8'];
     const id = spaceNames[i];
-    const t=((i+0.5)/8);
+    const t=diagTMin + (i/7)*(diagTMax-diagTMin);
     const cx=iR - t*(iR-cX), cy=iB - t*(iB-cY);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
@@ -247,7 +249,7 @@ function buildBoard(){
   for(let i=0;i<8;i++){
     const spaceNames = ['BL1','BL2','BL3','BL4','BL5','BL6','BL7','BL8'];
     const id = spaceNames[i];
-    const t=((i+0.5)/8);
+    const t=diagTMin + (i/7)*(diagTMax-diagTMin);
     const cx=iL + t*(cX-iL), cy=iB - t*(iB-cY);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
@@ -255,7 +257,7 @@ function buildBoard(){
   for(let i=0;i<8;i++){
     const spaceNames = ['TL1','TL2','TL3','TL4','TL5','TL6','TL7','TL8'];
     const id = spaceNames[i];
-    const t=((i+0.5)/8);
+    const t=diagTMin + (i/7)*(diagTMax-diagTMin);
     const cx=iL + t*(cX-iL), cy=iT + t*(cY-iT);
     pos[id]={x:cx-diag_wid/2, y:cy-diag_len/2, w:diag_wid, h:diag_len, cx, cy};
   }
@@ -484,22 +486,61 @@ function doEcho(){
 // ── Phase 3: Movement ─────────────────────────────────────────
 function doMove(){
   setPhase(3); const p=cur();
-  if(p.onInner){
-    setMsg(`Inner path. Move <b>${G.total}</b> steps.`);
-    setActions([{id:'btnToCenter',label:'→ Toward Center',cls:'blue'},{id:'btnToOuter',label:'← Back to Outer',cls:'amber'}]);
-    $('btnToCenter').onclick=()=>{ p.pos='CENTER'; p.onInner=false; p.innerId=null; moveToken(p); log(`${p.name} reaches CENTER!`,'gold'); afterMove(); };
-    $('btnToOuter').onclick=()=>{ p.onInner=false; p.innerId=null; moveToken(p); log(`${p.name} returns to outer.`); afterMove(); };
+  if(p.pos==='CENTER'){
+    // Player is at center - must choose an exit direction (cannot go back)
+    setMsg(`At CENTER HUB. Choose an exit direction to continue forward.`);
+    setActions([
+      {id:'btnExitVT',label:'↑ Top',cls:'blue'},
+      {id:'btnExitVB',label:'↓ Bottom',cls:'blue'},
+      {id:'btnExitHR',label:'→ Right',cls:'blue'},
+      {id:'btnExitHL',label:'← Left',cls:'blue'},
+      {id:'btnExitTR',label:'↗ Top-Right',cls:'amber'},
+      {id:'btnExitBR',label:'↘ Bot-Right',cls:'amber'},
+      {id:'btnExitBL',label:'↙ Bot-Left',cls:'amber'},
+      {id:'btnExitTL',label:'↖ Top-Left',cls:'amber'},
+    ]);
+    const exitMap={
+      btnExitVT:{path:'VT',idx:'VT6'},btnExitVB:{path:'VB',idx:'VB6'},
+      btnExitHR:{path:'HR',idx:'HR6'},btnExitHL:{path:'HL',idx:'HL6'},
+      btnExitTR:{path:'TR',idx:'TR8'},btnExitBR:{path:'BR',idx:'BR8'},
+      btnExitBL:{path:'BL',idx:'BL8'},btnExitTL:{path:'TL',idx:'TL8'},
+    };
+    Object.entries(exitMap).forEach(([btnId,info])=>{
+      const btn=$(btnId); if(!btn) return;
+      btn.onclick=()=>{
+        p.pos=null; p.onInner=true; p.innerId=info.idx;
+        p.innerDir='outward'; p.innerPath=info.path;
+        moveToken(p); log(`${p.name} exits CENTER via ${info.path} path.`,'gold');
+        afterMove();
+      };
+    });
+  } else if(p.onInner){
+    // On inner path - can only move FORWARD (no going back)
+    const dir = p.innerDir || 'inward';
+    if(dir==='inward'){
+      setMsg(`Advancing inner path toward CENTER.`);
+      setActions([{id:'btnGoCenter',label:'→ Enter Center Hub',cls:'blue'}]);
+      $('btnGoCenter').onclick=()=>{ p.pos='CENTER'; p.onInner=false; p.innerId=null; p.innerDir=null; p.innerPath=null; moveToken(p); log(`${p.name} reaches CENTER!`,'gold'); afterMove(); };
+    } else {
+      setMsg(`Moving outward through inner path to outer board.`);
+      setActions([{id:'btnExitToOuter',label:'→ Exit to Outer Board',cls:'green'}]);
+      $('btnExitToOuter').onclick=()=>{
+        p.onInner=false; p.innerId=null; p.innerDir=null; p.innerPath=null;
+        moveToken(p); log(`${p.name} exits inner path to outer board.`);
+        afterMove();
+      };
+    }
   } else {
     const old=p.pos; let np=(typeof p.pos==='number'?p.pos:1)+G.total; let passedStart=false;
     // NEW: 71 spaces total (1 START + 3 corners + 17*4 sides = 72, but using 71 playable)
-    if(np>71){ np=((np-1)%71)+1; passedStart=true; }
+    if(np>72){ np=((np-1)%72)+1; passedStart=true; }
     p.pos=np;
     if(passedStart||np===1){ p.capital+=2; log(`${p.name} passes START +2 Capital!`,'good'); }
     log(`${p.name} → Space ${np}.`);
     setMsg(`Moved to Space <b>${np}</b>${passedStart?' (+2 Capital)':''}`);
     moveToken(p); highlightSp(np); updateDash(p);
     // NEW: Intersections updated for new layout - corners and mid-points on each side
-    const ixSpaces=[1,10,19,28,37,46,55,63];
+    const ixSpaces=[1,10,19,28,37,47,55,64];
     if(ixSpaces.includes(np)){
       setMsg(setMsg(`Space <b>${np}</b> — intersection! Enter inner path?`));
       setActions([{id:'btnStayOuter',label:'Stay Outer',cls:'green'},{id:'btnEnterInner',label:'Enter Inner Path',cls:'blue'}]);
@@ -517,16 +558,16 @@ function offerInner(p,spId){
     19:['VT','HR'],     // WAR corner - can enter Vertical Top or Horizontal Right
     28:['HR'],          // RIGHT mid-point
     37:['HR','VB'],     // RENEWABLE ENERGY corner
-    46:['VB'],          // BOTTOM mid-point
+    47:['VB'],          // BOTTOM mid-point
     55:['VB','HL'],     // LONELINESS corner
-    63:['HL']           // LEFT mid-point
+    64:['HL']           // LEFT mid-point
   };
   const dirs=map[spId]||['VT'];
   const dirNames={VT:'↑ Top Vertical',HR:'→ Right Horizontal',VB:'↓ Bottom Vertical',HL:'← Left Horizontal',TR:'↗ Top-Right Diagonal',BR:'↘ Bot-Right Diagonal',BL:'↙ Bot-Left Diagonal',TL:'↖ Top-Left Diagonal'};
   const acts=dirs.map(d=>({id:'inner-'+d,label:dirNames[d]||d,cls:'blue'}));
   acts.push({id:'stayOuter2',label:'Stay Outer',cls:'green'});
   setActions(acts);
-  dirs.forEach(d=>{ const btn=$('inner-'+d); if(btn) btn.onclick=()=>{ p.onInner=true; p.innerId=d+'1'; moveToken(p); log(`${p.name} enters ${d} path.`); afterMove(); }; });
+  dirs.forEach(d=>{ const btn=$('inner-'+d); if(btn) btn.onclick=()=>{ p.onInner=true; p.innerId=d+'1'; p.innerDir='inward'; p.innerPath=d; moveToken(p); log(`${p.name} enters ${d} path.`); afterMove(); }; });
   $('stayOuter2').onclick=()=>afterMove();
 }
 
@@ -554,10 +595,10 @@ function doResolve(){
     let vpBonus=0;
     if(p.centerVisits%2===0){ p.vp++; vpBonus=1; }
     updateEco(); updateVP(); updateDash(p);
-    showCard({type:'🌿 CENTER HUB',icon:'🌟',name:'Global Eco Hub!',desc:'You landed on the center. The world rewards your city.',
+    showCard({type:'🌿 CENTER HUB',icon:'🌟',name:'Global Eco Hub!',desc:'You landed on the center. The world rewards your city. Choose your exit direction next turn!',
       effects:[{label:'+2 Capital',cls:'ch-cap'},{label:'+2 WB',cls:'ch-wb'},{label:'−1 Pollution',cls:'ch-pol'},{label:'+1 Global Eco',cls:'ch-eco'},
                vpBonus?{label:'+1 VP',cls:'ch-vp'}:null].filter(Boolean),
-      onOk:()=>{ p.pos=1; p.onInner=false; moveToken(p); doOptBuild(true); }});
+      onOk:()=>{ doOptBuild(true); }});
     log(`${p.name} reaches CENTER HUB!${vpBonus?' +1VP!':''}`,'gold');
     return;
   }
