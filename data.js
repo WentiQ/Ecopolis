@@ -197,29 +197,29 @@ const INNER_SPACES = [
   {id:'HL5',dir:'left',name:'Deforestation',       icon:'🌲', type:'s-inner-left', points:-4, modifiers:{globalEco:-4, wellbeing:-2, capital:-1}},
   {id:'HL6',dir:'left',name:'Carbon Capture',      icon:'💨', type:'s-inner-left', points:4, modifiers:{capital:2, pollution:-4, globalEco:4, vp:2}},
 
-  // HORIZONTAL RIGHT (6 spaces, moving toward center)
-  {id:'HR1',dir:'right',name:'Biogas Plant',       icon:'🌾', type:'s-inner-right', points:3, modifiers:{capital:2, pollution:-2, globalEco:3, vp:1}},
-  {id:'HR2',dir:'right',name:'Innovation Crisis',  icon:'🧑‍🔬', type:'s-inner-right', points:-4, modifiers:{capital:-4, wellbeing:-2, land:-1}},
-  {id:'HR3',dir:'right',name:'Cyber Attack',       icon:'💻', type:'s-inner-right', points:-5, modifiers:{capital:-5, wellbeing:-2}},
-  {id:'HR4',dir:'right',name:'Carbon Tax',         icon:'💰', type:'s-inner-right', points:2, modifiers:{capital:-1, pollution:-3, globalEco:3, vp:1}},
-  {id:'HR5',dir:'right',name:'Skating Rink',       icon:'⛸️', type:'s-inner-right', points:1, modifiers:{wellbeing:2, capital:1}},
-  {id:'HR6',dir:'right',name:'Microplastic Toxicity',icon:'🔬', type:'s-inner-right', points:-4, modifiers:{wellbeing:-4, pollution:5, capital:-1}},
+  // HORIZONTAL RIGHT (6 spaces, moving toward center) — reversed order
+  {id:'HR1',dir:'right',name:'Microplastic Toxicity',icon:'🔬', type:'s-inner-right', points:-4, modifiers:{wellbeing:-4, pollution:5, capital:-1}},
+  {id:'HR2',dir:'right',name:'Skating Rink',       icon:'⛸️', type:'s-inner-right', points:1, modifiers:{wellbeing:2, capital:1}},
+  {id:'HR3',dir:'right',name:'Carbon Tax',         icon:'💰', type:'s-inner-right', points:2, modifiers:{capital:-1, pollution:-3, globalEco:3, vp:1}},
+  {id:'HR4',dir:'right',name:'Cyber Attack',       icon:'💻', type:'s-inner-right', points:-5, modifiers:{capital:-5, wellbeing:-2}},
+  {id:'HR5',dir:'right',name:'Innovation Crisis',  icon:'🧑‍🔬', type:'s-inner-right', points:-4, modifiers:{capital:-4, wellbeing:-2, land:-1}},
+  {id:'HR6',dir:'right',name:'Biogas Plant',       icon:'🌾', type:'s-inner-right', points:3, modifiers:{capital:2, pollution:-2, globalEco:3, vp:1}},
 
   // VERTICAL TOP (6 spaces, moving down toward center)
-  {id:'VT1',dir:'up',name:'Textile',              icon:'👗', type:'s-inner-up', points:1, modifiers:{capital:2, pollution:3}},
-  {id:'VT2',dir:'up',name:'Terrorism',            icon:'💣', type:'s-inner-up', points:-6, modifiers:{wellbeing:-6, capital:-2}},
-  {id:'VT3',dir:'up',name:'Record Harvest',       icon:'🧺', type:'s-inner-up', points:3, modifiers:{wellbeing:2, globalEco:2}},
-  {id:'VT4',dir:'up',name:'AI Disruption',        icon:'🤖', type:'s-inner-up', points:-4, modifiers:{capital:-4, wellbeing:-2}},
-  {id:'VT5',dir:'up',name:'Petrochemical',        icon:'🛢️', type:'s-inner-up', points:1, modifiers:{capital:2, pollution:6, globalEco:-2}},
-  {id:'VT6',dir:'up',name:'Open Gym',             icon:'💪', type:'s-inner-up', points:2, modifiers:{wellbeing:2, vp:1}},
+  {id:'VT1',dir:'up',name:'Fuel Price Hike',          icon:'⛽', type:'s-inner-up', points:-3, modifiers:{capital:-3, wellbeing:-2, pollution:2}},
+  {id:'VT2',dir:'up',name:'Public Library Expansion', icon:'📚', type:'s-inner-up', points:3, modifiers:{wellbeing:3, capital:1, vp:1}},
+  {id:'VT3',dir:'up',name:'Pedestrian Bridge',        icon:'🌉', type:'s-inner-up', points:3, modifiers:{wellbeing:3, capital:2, vp:1}},
+  {id:'VT4',dir:'up',name:'Excess Fertilizer Soil Damage',icon:'🌱', type:'s-inner-up', points:-4, modifiers:{globalEco:-4, wellbeing:-2, pollution:3}},
+  {id:'VT5',dir:'up',name:'Rare Minerals Found',      icon:'💎', type:'s-inner-up', points:5, modifiers:{capital:5, land:2, vp:2}},
+  {id:'VT6',dir:'up',name:'Plastic Ban Policy',       icon:'🚫', type:'s-inner-up', points:4, modifiers:{pollution:-5, globalEco:4, wellbeing:2, vp:2}},
 
-  // VERTICAL BOTTOM (6 spaces, moving up toward center)
-  {id:'VB1',dir:'down',name:'Rainwater Harvesting',icon:'💧', type:'s-inner-down', points:2, modifiers:{globalEco:2, wellbeing:1}},
-  {id:'VB2',dir:'down',name:'Museum',             icon:'🖼️', type:'s-inner-down', points:2, modifiers:{wellbeing:2, capital:2, vp:1}},
-  {id:'VB3',dir:'down',name:'Energy Demand Spike',icon:'⚡', type:'s-inner-down', points:-3, modifiers:{capital:-4, globalEco:-1}},
-  {id:'VB4',dir:'down',name:'Sewage Treatment',   icon:'🏗️', type:'s-inner-down', points:2, modifiers:{globalEco:2, pollution:-3}},
-  {id:'VB5',dir:'down',name:'Quantum Hub & Tech', icon:'⚛️', type:'s-inner-down', points:4, modifiers:{capital:4, vp:2}},
-  {id:'VB6',dir:'down',name:'Planetary Restoration',icon:'🌍', type:'s-inner-down', points:5, modifiers:{globalEco:5, pollution:-4}},
+  // VERTICAL BOTTOM (6 spaces, VB1=outermost/top of bottom edge → VB6=nearest center)
+  {id:'VB1',dir:'down',name:'Financial Crisis',       icon:'📉', type:'s-inner-down', points:-6, modifiers:{capital:-6, wellbeing:-4, globalEco:-1}},
+  {id:'VB2',dir:'down',name:'Ozone Layer Repaired',   icon:'🌍', type:'s-inner-down', points:5, modifiers:{globalEco:5, pollution:-4, wellbeing:2, vp:2}},
+  {id:'VB3',dir:'down',name:'Overfishing',            icon:'🐟', type:'s-inner-down', points:-4, modifiers:{globalEco:-5, wellbeing:-2, capital:-1}},
+  {id:'VB4',dir:'down',name:'IT Company',             icon:'💻', type:'s-inner-down', points:4, modifiers:{capital:5, wellbeing:2, vp:2}},
+  {id:'VB5',dir:'down',name:'Famine',                 icon:'🌾', type:'s-inner-down', points:-6, modifiers:{wellbeing:-6, capital:-3, globalEco:-2}},
+  {id:'VB6',dir:'down',name:'Plastic Pollution',      icon:'🧴', type:'s-inner-down', points:-4, modifiers:{globalEco:-4, pollution:5, wellbeing:-2}},
 
   // DIAGONAL TOP-LEFT (8 spaces)
   {id:'TL1',dir:'tl',name:'Textile',              icon:'👗', type:'s-inner-diag', points:1, modifiers:{capital:2, pollution:3}},
@@ -241,15 +241,15 @@ const INNER_SPACES = [
   {id:'TR7',dir:'tr',name:'Data Leak',            icon:'📊', type:'s-inner-diag', points:-4, modifiers:{capital:-4, wellbeing:-3}},
   {id:'TR8',dir:'tr',name:'Water Dispenser',      icon:'💧', type:'s-inner-diag', points:1, modifiers:{wellbeing:1, capital:1}},
 
-  // DIAGONAL BOTTOM-RIGHT (8 spaces)
-  {id:'BR1',dir:'br',name:'Rainwater Harvesting',icon:'💧', type:'s-inner-diag', points:2, modifiers:{globalEco:2, wellbeing:1}},
-  {id:'BR2',dir:'br',name:'Museum',               icon:'🖼️', type:'s-inner-diag', points:2, modifiers:{wellbeing:2, capital:2, vp:1}},
-  {id:'BR3',dir:'br',name:'Energy Demand Spike',  icon:'⚡', type:'s-inner-diag', points:-3, modifiers:{capital:-4, globalEco:-1}},
-  {id:'BR4',dir:'br',name:'Sewage Treatment',     icon:'🏗️', type:'s-inner-diag', points:2, modifiers:{globalEco:2, pollution:-3}},
-  {id:'BR5',dir:'br',name:'Quantum Hub & Tech',   icon:'⚛️', type:'s-inner-diag', points:4, modifiers:{capital:4, vp:2}},
-  {id:'BR6',dir:'br',name:'Planetary Restoration',icon:'🌍', type:'s-inner-diag', points:5, modifiers:{globalEco:5, pollution:-4}},
-  {id:'BR7',dir:'br',name:'Water Treatment Plant',icon:'🏗️', type:'s-inner-diag', points:3, modifiers:{globalEco:3, pollution:-2, capital:2, vp:1}},
-  {id:'BR8',dir:'br',name:'Clock Tower',          icon:'🕐', type:'s-inner-diag', points:1, modifiers:{wellbeing:1, capital:1}},
+  // DIAGONAL BOTTOM-RIGHT (8 spaces) — reversed order
+  {id:'BR1',dir:'br',name:'Clock Tower',          icon:'🕐', type:'s-inner-diag', points:1, modifiers:{wellbeing:1, capital:1}},
+  {id:'BR2',dir:'br',name:'Water Treatment Plant',icon:'🏗️', type:'s-inner-diag', points:3, modifiers:{globalEco:3, pollution:-2, capital:2, vp:1}},
+  {id:'BR3',dir:'br',name:'Planetary Restoration',icon:'🌍', type:'s-inner-diag', points:5, modifiers:{globalEco:5, pollution:-4}},
+  {id:'BR4',dir:'br',name:'Quantum Hub & Tech',   icon:'⚛️', type:'s-inner-diag', points:4, modifiers:{capital:4, vp:2}},
+  {id:'BR5',dir:'br',name:'Sewage Treatment',     icon:'🏗️', type:'s-inner-diag', points:2, modifiers:{globalEco:2, pollution:-3}},
+  {id:'BR6',dir:'br',name:'Energy Demand Spike',  icon:'⚡', type:'s-inner-diag', points:-3, modifiers:{capital:-4, globalEco:-1}},
+  {id:'BR7',dir:'br',name:'Museum',               icon:'🖼️', type:'s-inner-diag', points:2, modifiers:{wellbeing:2, capital:2, vp:1}},
+  {id:'BR8',dir:'br',name:'Rainwater Harvesting', icon:'💧', type:'s-inner-diag', points:2, modifiers:{globalEco:2, wellbeing:1}},
 
   // DIAGONAL BOTTOM-LEFT (8 spaces)
   {id:'BL1',dir:'bl',name:'Wildlife Corridor',    icon:'🦌', type:'s-inner-diag', points:3, modifiers:{globalEco:4, wellbeing:1, capital:1, vp:1}},
